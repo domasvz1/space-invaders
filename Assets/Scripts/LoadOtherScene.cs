@@ -9,4 +9,10 @@ public class LoadOtherScene : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName); // Simply Changes The scene
     }
+
+    public void QuitGame()
+    {
+        //Debug.Log("This will quit");
+        Application.Quit();
+    }
 }

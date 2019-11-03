@@ -8,20 +8,23 @@ public class LoadingBeforeGame : MonoBehaviour {
 
     public Text editableText;
     bool blinking = true;
-    string checkedText = " Qualifying " + "\n" + "Race"; // The initial text
-    WaitForSeconds waitForBlinking = new WaitForSeconds(0.25f); // The blinking will occur every 0.25 of the second
+    string checkedText = "Get Ready"; // The initial text
+
+    // The blinking will occur every 0.25 of the second
+    private readonly WaitForSeconds waitForBlinking = new WaitForSeconds(0.25f);
+
     public int timesForTextBlink; // The limit of blinking ticks = 0.25seconds * 12, will be 3 seconds, after that the blinkng needs to stop
     int secondsCounter = 0; // counter of ticks that wll need to reach the limit and tell us when to stop the loop
 
-    IEnumerator Start()
+    private IEnumerator Start()
     {
         GameObject.FindGameObjectWithTag("Music").GetComponent<MusicScript>().StopMusic();
         while (blinking)
         {
-            if (checkedText == " Qualifying " + "\n" + "Race")
+            if (checkedText == "Get Ready")
                 checkedText = "";
             else if (checkedText == "")
-                checkedText = " Qualifying " + "\n" + "Race";
+                checkedText = "Get Ready";
 
             editableText.text = checkedText;
             secondsCounter += 1;
