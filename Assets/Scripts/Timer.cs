@@ -7,21 +7,27 @@ public class Timer : MonoBehaviour
     public int timeLeft;
     public Text countdownText;
     // All the game objects that need to be frozen before start
-    public GameObject PlayerScript, ViperScript, TaxiScript, SanchezScript;
+    public GameObject PlayerScript;
+
+    // public GameObject ViperScript, TaxiScript, SanchezScript;
+
+
     // All the Images that need to shown at startng UI and then disappear
-    public Image PlayerImage, ViperImage, TaxiImage, SanchezImage;
+    public Image PlayerImage;
+
+    //public Image  ViperImage, TaxiImage, SanchezImage;
 
     // This script sets all the scripts with the movements to activ eafter the certain time
-    void Start()
+    private void Start()
     {
         StartCoroutine("CountDown");
         SetTheCondition(false,true);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        countdownText.text = ("Race Begins In " + timeLeft);
+        countdownText.text = ("Level Begins In " + timeLeft);
 
         if (timeLeft <= 0)
         {
@@ -43,8 +49,14 @@ public class Timer : MonoBehaviour
     void SetTheCondition(bool gameObjectsCondition, bool imagesConditon)
     {
         // Arrays to fit in all Objects and image so that we wouldn't need to duplicated code
-        GameObject[] GameObjectsArray = { PlayerScript, ViperScript, TaxiScript, SanchezScript };
-        Image[] ImagesArray = { PlayerImage, ViperImage, TaxiImage, SanchezImage };
+
+        // -- Take the listing from here
+
+        //GameObject[] GameObjectsArray = { PlayerScript, ViperScript, TaxiScript, SanchezScript };
+        GameObject[] GameObjectsArray = { PlayerScript };
+
+        //Image[] ImagesArray = { PlayerImage, ViperImage, TaxiImage, SanchezImage };
+        Image[] ImagesArray = { PlayerImage };
         // Both arrays are the same size, so it doesnt matetr which one we take for the loop
         for (int i = 0; i < ImagesArray.Length; i++) 
         {

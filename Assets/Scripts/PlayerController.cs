@@ -8,20 +8,22 @@ public class PlayerController : MonoBehaviour
     public float speedForce = 20f, torqueForce = -200f, driftChanceSticky = 0.9f, driftChanceSlippy = 1f, maxStickyVelocity = 2.5f;
     public AudioSource gassPedalSound;
     public GameObject ExhaustParticle;
-    private PlayerController car;
+    private PlayerController spaceShip;
     bool gotOutOfBounds = false,  finishedShrinking = false, slowDownThePlayer = false;
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        /*
         //If a player goes on trigger and sees the tag out of bounds, he just went out of bounds
         if (collision.CompareTag("OutsideBounds") )
             gotOutOfBounds = true;
 
         else if (collision.CompareTag("Slerp") )
             slowDownThePlayer = true;
+            */
     }
 
-    void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("OutsideBounds"))
             gotOutOfBounds = false;
@@ -30,9 +32,9 @@ public class PlayerController : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
-        car = FindObjectOfType<PlayerController>();
+        spaceShip = FindObjectOfType<PlayerController>();
     }
 
     void FixedUpdate()
@@ -59,28 +61,30 @@ public class PlayerController : MonoBehaviour
             }  
         }
 
+        // The main spaceship moevement
         else if(!gotOutOfBounds)
         {
-            // Everytime when we're not out of bounds,we make sure we dont shrink and we are dont scale
+            // Everytime when we're not out of bounds,we make sure we dont shrink and we dont do the downsize
             finishedShrinking = false;
-            player.transform.localScale = new Vector3(1, 1, 1);
+
+            // the not shrunk version of shpaship is 0.2  0.2 0.2
+            player.transform.localScale = new Vector3(1,1,1);
             // The Accelaration the the car will be added, evey time i hold the button
-            if (Input.GetButton("Accelerate"))
+            if (Input.GetButton("Horizontal"))
             {
-                if (slowDownThePlayer) // If there's a collision happening with slerps, then we slow player's force
+                if (slowDownThePlayer) // If there's a collision to asteroid
                 {
-                    Instantiate(ExhaustParticle, car.transform.position, car.transform.rotation);
+                    Instantiate(ExhaustParticle, spaceShip.transform.position, spaceShip.transform.rotation);
                     player.AddForce(transform.up * speedForce/3);
                 }
                 else
                 {
-                    Instantiate(ExhaustParticle, car.transform.position, car.transform.rotation);
+                    Instantiate(ExhaustParticle, spaceShip.transform.position, spaceShip.transform.rotation);
                     player.AddForce(transform.up * speedForce);
                 }
             }
 
-            if (Input.GetButton("Brake"))
-                player.AddForce(transform.up * -speedForce / 2f);
+            
 
             // The BEEP sound will online display when I Press the button
             if (Input.GetKeyDown(KeyCode.Z))
@@ -111,14 +115,14 @@ public class PlayerController : MonoBehaviour
         AudioListener.pause = !AudioListener.pause;
     }
 
-    IEnumerator Scale(Rigidbody2D player)
+    private IEnumerator Scale(Rigidbody2D player)
     {
         float scaling = 0.01f;
         player.angularVelocity += 20;
 
         while (0 < transform.localScale.x)
         {
-            transform.localScale -= new Vector3(1, 1, 1) * Time.deltaTime * scaling;
+            transform.localScale -= new Vector3(0.2f, 0.2f, 0.2f) * Time.deltaTime * scaling;
             yield return null;
         }
         finishedShrinking = true;
