@@ -233,7 +233,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\CounterSoundTimer.cs" />
-    <Compile Include="Assets\DontDestroy.cs" />
+    <Compile Include="Assets\DestroyOnCollision.cs" />
     <Compile Include="Assets\Scripts\AnroidIconTravel.cs" />
     <Compile Include="Assets\Scripts\CarLaps.cs" />
     <Compile Include="Assets\Scripts\DestroyFinishedParticle.cs" />
@@ -255,6 +255,7 @@
     <Compile Include="Assets\Scripts\ViperCheckPoint.cs" />
     <Compile Include="Assets\Scripts\ViperHandler.cs" />
     <Compile Include="Assets\Scripts\VipersMovement.cs" />
+    <Compile Include="Assets\Travel.cs" />
     <Compile Include="Assets\UpdateMenuItems.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -18,6 +18,13 @@ public class PlayerController : MonoBehaviour
     public Boundaries Boundaries;
     public float spaceshipSpeed;
 
+    public Transform ShotSpawnCoords;
+    public GameObject BulletShell;
+    public AudioSource ShootingSound;
+
+    private readonly float shootingIntensity = 0.4f;
+    private float nextBulletTime;
+
 
     public void Start()
     {
@@ -47,7 +54,23 @@ public class PlayerController : MonoBehaviour
             */
     }
 
-    void FixedUpdate()
+
+    private void Update()
+    {
+        // When you shoot, it checks if you can shoot another bullet and plays the sound of the shot
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextBulletTime)
+        {
+            nextBulletTime = Time.time + shootingIntensity;
+            Instantiate(BulletShell, ShotSpawnCoords.position, ShotSpawnCoords.rotation);
+            ShootingSound.Play();
+        }
+
+        // TO DO other controls here
+        // Input Pause option
+        // Input restart option
+    }
+
+    private void FixedUpdate()
     {
         // Getting Player's Rigidbody component
 
@@ -73,24 +96,12 @@ public class PlayerController : MonoBehaviour
             Mathf.Clamp(player.position.x, Boundaries.xMin, Boundaries.xMax),
             Mathf.Clamp(player.position.y, Boundaries.yMin, Boundaries.yMax),
             player.transform.position.z);
-
-
         
         player.rotation = Quaternion.Euler(0.0f, 0.0f, player.velocity.x * -1);
 
-        // Other input controls
-
-       //The BEEP sound will online display when I Press the button
-       if (Input.GetKeyDown(KeyCode.Z))
-        { 
-            //PlayEngineSound(); // DO BEEP BEEP IN THE FUTURE
-        }
 
 
-        // Input Pause option
 
-
-        // Input restart option
     }
 
     /*
