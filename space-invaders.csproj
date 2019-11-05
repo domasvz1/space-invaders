@@ -232,6 +232,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DontDestroy.cs" />
     <Compile Include="Assets\Scripts\AnroidIconTravel.cs" />
     <Compile Include="Assets\Scripts\CarLaps.cs" />
     <Compile Include="Assets\Scripts\DestroyFinishedParticle.cs" />
@@ -242,7 +243,6 @@
     <Compile Include="Assets\Scripts\LogoScript.cs" />
     <Compile Include="Assets\Scripts\MastersIconTravel.cs" />
     <Compile Include="Assets\Scripts\MusicScript.cs" />
-    <Compile Include="Assets\Scripts\NewPlayersCamera.cs" />
     <Compile Include="Assets\Scripts\PlayerCheckPoint.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerHandler.cs" />

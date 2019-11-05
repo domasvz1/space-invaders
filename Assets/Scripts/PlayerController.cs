@@ -1,15 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+[Serializable]
+public struct Boundaries
+{
+    public float xMin, xMax, yMin, yMax;
+}
+
 public class PlayerController : MonoBehaviour
 {
-    public float speedForce = 20f, torqueForce = -200f, driftChanceSticky = 0.9f, driftChanceSlippy = 1f, maxStickyVelocity = 2.5f;
-    public AudioSource gassPedalSound;
-    public GameObject ExhaustParticle;
-    private PlayerController spaceShip;
-    bool gotOutOfBounds = false,  finishedShrinking = false, slowDownThePlayer = false;
+    //public AudioSource shootingSound;
+    //public GameObject ExhaustParticle;
+    public Boundaries Boundaries;
+    public float spaceshipSpeed;
+
+    public void Start()
+    {
+        Rigidbody player = GetComponent<Rigidbody>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -24,101 +36,70 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerExit2D(Collider2D collision)
-    {
+    { 
+        // For now no more triggers
+        /*
         if (collision.CompareTag("OutsideBounds"))
             gotOutOfBounds = false;
         else if (collision.CompareTag("Slerp"))
             slowDownThePlayer = false;
-    }
-
-    // Use this for initialization
-    private void Start()
-    {
-        spaceShip = FindObjectOfType<PlayerController>();
+            */
     }
 
     void FixedUpdate()
     {
-        Rigidbody2D player = GetComponent<Rigidbody2D>();
-        float driftFactor = driftChanceSticky;
+        // Getting Player's Rigidbody component
 
-        if (RightVelocity().magnitude > maxStickyVelocity)
-            driftFactor = driftChanceSlippy;
+        Rigidbody player = GetComponent<Rigidbody>();
+        // Need write the moving logic here
+        float horizontalMovement = Input.GetAxis("Horizontal");
+        float verticalMovement = Input.GetAxis("Vertical");
 
-        player.velocity = ForwardVelocity() + RightVelocity() * driftFactor;
+        // Get Rigidbody component and chanhe its velocity to vector coords multiplied by speed var
+        Vector3 spaceshipPosition = new Vector3(horizontalMovement, verticalMovement, 0.0f);
+        player.velocity = spaceshipPosition * spaceshipSpeed;
 
-        if (gotOutOfBounds)
-        {
-            if (!finishedShrinking)
-                StartCoroutine(Scale(player));
+        player.transform.position = new Vector3(
+            Mathf.Clamp(player.transform.position.x, Boundaries.xMin, Boundaries.xMax),
+            Mathf.Clamp(player.transform.position.y, Boundaries.yMin, Boundaries.yMax),
+            player.transform.position.z);
+        
+        
+        
+        player.rotation = Quaternion.Euler(0.0f, 0.0f, player.velocity.x * -1);
 
-            if (finishedShrinking)
-            {
-                player.angularVelocity = 0;
-                player.MovePosition(PlayerHandler.checkpointA[PlayerHandler.currentCheckpoint].position);
-                finishedShrinking = false;
-                gotOutOfBounds = false;
-            }  
+        // Other input controls
+
+       //The BEEP sound will online display when I Press the button
+       if (Input.GetKeyDown(KeyCode.Z))
+        { 
+            //PlayEngineSound(); // DO BEEP BEEP IN THE FUTURE
         }
 
-        // The main spaceship moevement
-        else if(!gotOutOfBounds)
-        {
-            // Everytime when we're not out of bounds,we make sure we dont shrink and we dont do the downsize
-            finishedShrinking = false;
 
-            // the not shrunk version of shpaship is 0.2  0.2 0.2
-            player.transform.localScale = new Vector3(1,1,1);
-            // The Accelaration the the car will be added, evey time i hold the button
-            if (Input.GetButton("Horizontal"))
-            {
-                if (slowDownThePlayer) // If there's a collision to asteroid
-                {
-                    Instantiate(ExhaustParticle, spaceShip.transform.position, spaceShip.transform.rotation);
-                    player.AddForce(transform.up * speedForce/3);
-                }
-                else
-                {
-                    Instantiate(ExhaustParticle, spaceShip.transform.position, spaceShip.transform.rotation);
-                    player.AddForce(transform.up * speedForce);
-                }
-            }
+        // Input Pause option
 
-            
 
-            // The BEEP sound will online display when I Press the button
-            if (Input.GetKeyDown(KeyCode.Z))
-                PlayEngineSound(); // DO BEEP BEEP IN THE FUTURE
-
-            float tf = Mathf.Lerp(0, torqueForce, player.velocity.magnitude / 2);
-            player.angularVelocity = Input.GetAxis("Horizontal") * tf;
-        }
+        // Input restart option
     }
 
-    Vector2 ForwardVelocity()
-    {
-        return transform.up * Vector2.Dot(GetComponent<Rigidbody2D>().velocity, transform.up);
-    }
-
-    Vector2 RightVelocity()
-    {
-        return transform.right * Vector2.Dot(GetComponent<Rigidbody2D>().velocity, transform.right);
-    }
-
+    /*
     void PlayEngineSound()
     {
-        gassPedalSound.Play();
+        shootingSound.Play();
     }
+    */
 
     public void Mute()
     {
         AudioListener.pause = !AudioListener.pause;
     }
 
-    private IEnumerator Scale(Rigidbody2D player)
+    private IEnumerator Scale(Rigidbody player)
     {
+        /*
         float scaling = 0.01f;
-        player.angularVelocity += 20;
+        player.angularVelocity.z += 20;
 
         while (0 < transform.localScale.x)
         {
@@ -126,5 +107,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         finishedShrinking = true;
+        */
+        yield return null;
     }
 }
