@@ -7,10 +7,7 @@ public class Timer : MonoBehaviour
     public int timeLeft;
     public Text countdownText;
     // All the game objects that need to be frozen before start
-    public GameObject PlayerScript;
-
-    // public GameObject ViperScript, TaxiScript, SanchezScript;
-
+    public GameObject PlayerObject, GameEventObject;
 
     // All the Images that need to shown at startng UI and then disappear
     public Image PlayerImage;
@@ -51,17 +48,21 @@ public class Timer : MonoBehaviour
         // Arrays to fit in all Objects and image so that we wouldn't need to duplicated code
 
         // -- Take the listing from here
-
-        //GameObject[] GameObjectsArray = { PlayerScript, ViperScript, TaxiScript, SanchezScript };
-        GameObject[] GameObjectsArray = { PlayerScript };
+        GameObject[] GameObjectsArray = { PlayerObject, GameEventObject };
 
         //Image[] ImagesArray = { PlayerImage, ViperImage, TaxiImage, SanchezImage };
         Image[] ImagesArray = { PlayerImage };
-        // Both arrays are the same size, so it doesnt matetr which one we take for the loop
-        for (int i = 0; i < ImagesArray.Length; i++) 
+
+
+        // Not both array are always the same zie
+        foreach (GameObject obj in GameObjectsArray)
         {
-            GameObjectsArray[i].SetActive(gameObjectsCondition);
-            ImagesArray[i].enabled = imagesConditon;
+            obj.SetActive(gameObjectsCondition);
+        }
+
+        foreach (Image img in ImagesArray)
+        {
+            img.enabled = imagesConditon;
         }
     }
 }

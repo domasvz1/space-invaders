@@ -18,12 +18,13 @@ public class PlayerController : MonoBehaviour
     public Boundaries Boundaries;
     public float spaceshipSpeed;
 
+
     public void Start()
     {
         Rigidbody player = GetComponent<Rigidbody>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         /*
         //If a player goes on trigger and sees the tag out of bounds, he just went out of bounds
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour
             */
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider collision)
     { 
         // For now no more triggers
         /*
@@ -55,16 +56,25 @@ public class PlayerController : MonoBehaviour
         float horizontalMovement = Input.GetAxis("Horizontal");
         float verticalMovement = Input.GetAxis("Vertical");
 
+
+        
+
         // Get Rigidbody component and chanhe its velocity to vector coords multiplied by speed var
         Vector3 spaceshipPosition = new Vector3(horizontalMovement, verticalMovement, 0.0f);
+
+
+        // If someone forgets to set speed in inspector or it resets, this will be changed to default:
+        if (spaceshipSpeed == 0)
+            spaceshipSpeed = 10;
+
         player.velocity = spaceshipPosition * spaceshipSpeed;
 
         player.transform.position = new Vector3(
-            Mathf.Clamp(player.transform.position.x, Boundaries.xMin, Boundaries.xMax),
-            Mathf.Clamp(player.transform.position.y, Boundaries.yMin, Boundaries.yMax),
+            Mathf.Clamp(player.position.x, Boundaries.xMin, Boundaries.xMax),
+            Mathf.Clamp(player.position.y, Boundaries.yMin, Boundaries.yMax),
             player.transform.position.z);
-        
-        
+
+
         
         player.rotation = Quaternion.Euler(0.0f, 0.0f, player.velocity.x * -1);
 
