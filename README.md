@@ -15,3 +15,8 @@ Right now the main menu is in fixing stage, fix the starting menu "Menu" Scene m
 
 
 Will upload screenshots from this game later.
+
+
+Annoying things... 
+
+well this took me an hour to figure out.. my movemnt of rigidbody is x y and not z, when using Vector3. This might be handy for anyone using this someday
