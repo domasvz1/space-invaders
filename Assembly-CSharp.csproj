@@ -51,6 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CounterSoundTimer.cs" />
+     <Compile Include="Assets\DestroyItself.cs" />
+     <Compile Include="Assets\DestroyOnCollision.cs" />
      <Compile Include="Assets\Scripts\AnroidIconTravel.cs" />
      <Compile Include="Assets\Scripts\CarLaps.cs" />
      <Compile Include="Assets\Scripts\DestroyFinishedParticle.cs" />
@@ -61,7 +64,6 @@
      <Compile Include="Assets\Scripts\LogoScript.cs" />
      <Compile Include="Assets\Scripts\MastersIconTravel.cs" />
      <Compile Include="Assets\Scripts\MusicScript.cs" />
-     <Compile Include="Assets\Scripts\NewPlayersCamera.cs" />
      <Compile Include="Assets\Scripts\PlayerCheckPoint.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerHandler.cs" />
@@ -73,6 +75,7 @@
      <Compile Include="Assets\Scripts\ViperCheckPoint.cs" />
      <Compile Include="Assets\Scripts\ViperHandler.cs" />
      <Compile Include="Assets\Scripts\VipersMovement.cs" />
+     <Compile Include="Assets\Travel.cs" />
      <Compile Include="Assets\UpdateMenuItems.cs" />
  <Reference Include="UnityEngine.CoreModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2017.4.34f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
