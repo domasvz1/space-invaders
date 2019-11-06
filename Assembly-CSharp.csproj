@@ -54,6 +54,7 @@
      <Compile Include="Assets\CounterSoundTimer.cs" />
      <Compile Include="Assets\DestroyItself.cs" />
      <Compile Include="Assets\DestroyOnCollision.cs" />
+     <Compile Include="Assets\EnemyController.cs" />
      <Compile Include="Assets\Scripts\AnroidIconTravel.cs" />
      <Compile Include="Assets\Scripts\CarLaps.cs" />
      <Compile Include="Assets\Scripts\DestroyFinishedParticle.cs" />
