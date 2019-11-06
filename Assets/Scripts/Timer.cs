@@ -7,7 +7,8 @@ public class Timer : MonoBehaviour
     public int timeLeft;
     public Text countdownText;
     // All the game objects that need to be frozen before start
-    public GameObject PlayerObject, GameEventObject;
+    public GameObject PlayerObject, GameEventObject, Prefab;
+
 
     // All the Images that need to shown at startng UI and then disappear
     public Image PlayerImage;
@@ -43,7 +44,7 @@ public class Timer : MonoBehaviour
         }
     }
 
-    void SetTheCondition(bool gameObjectsCondition, bool imagesConditon)
+    void SetTheCondition(bool gameObjectsCondition, bool condition)
     {
         // Arrays to fit in all Objects and image so that we wouldn't need to duplicated code
 
@@ -62,7 +63,11 @@ public class Timer : MonoBehaviour
 
         foreach (Image img in ImagesArray)
         {
-            img.enabled = imagesConditon;
+            img.enabled = condition;
         }
+
+        // Scripts
+        GameEventObject.GetComponent<GameEventController>().enabled = gameObjectsCondition;
+        Prefab.SetActive(gameObjectsCondition);
     }
 }

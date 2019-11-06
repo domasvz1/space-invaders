@@ -3756,9 +3756,10 @@ GameObject:
   m_Component:
   - component: {fileID: 166341146}
   - component: {fileID: 166341145}
+  - component: {fileID: 166341147}
   m_Layer: 0
   m_Name: GameEvents
-  m_TagString: Untagged
+  m_TagString: GameEvents
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3856,6 +3857,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &166341147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 166341144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 849ca4a28a4214c4db18fa39500ec735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemy: {fileID: 1597540856733650, guid: 8470fc130fbb3d849ac216705cbfae48, type: 2}
 --- !u!1 &210296310
 GameObject:
   m_ObjectHideFlags: 0
@@ -4191,6 +4204,7 @@ MonoBehaviour:
   countdownText: {fileID: 262168545}
   PlayerObject: {fileID: 210296310}
   GameEventObject: {fileID: 166341144}
+  Prefab: {fileID: 1597540856733650, guid: 8470fc130fbb3d849ac216705cbfae48, type: 2}
   PlayerImage: {fileID: 1359557308}
 --- !u!114 &262168548
 MonoBehaviour:

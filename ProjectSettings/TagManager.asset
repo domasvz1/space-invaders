@@ -4,7 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - checkpoint
+  - GameEvents
   layers:
   - Default
   - TransparentFX

@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\AnroidIconTravel.cs" />
      <Compile Include="Assets\Scripts\CarLaps.cs" />
      <Compile Include="Assets\Scripts\DestroyFinishedParticle.cs" />
+     <Compile Include="Assets\Scripts\GameEventController.cs" />
      <Compile Include="Assets\Scripts\LoadingAfterGame.cs" />
      <Compile Include="Assets\Scripts\LoadingBeforeGame.cs" />
      <Compile Include="Assets\Scripts\LoadOtherScene.cs" />
