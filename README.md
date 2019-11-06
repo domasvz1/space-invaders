@@ -32,3 +32,8 @@ Implement enemy arrays
 Annoying things... 
 
 well this took me an hour to figure out.. my movemnt of rigidbody is x y and not z, when using Vector3. This might be handy for anyone using this someday
+
+
+# Workflow itself:
+
+- To set up workflow used Favro board with "To do" "Doing" "Testing" and "Done" columns. I have not written any tests for my game.
