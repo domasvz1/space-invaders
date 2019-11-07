@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Travel : MonoBehaviour {
 
-    private readonly float travelSpeed = 25.0f;
+    public float travelSpeed = 25.0f;
 
 	void Start ()
     {

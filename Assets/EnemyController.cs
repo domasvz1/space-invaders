@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
 
     // This can be from gameController
-    public float shootDelay = 2.0f;
-    public float repeatRate = 2.0f;
+    public float shootDelay = 1.0f;
+    public float repeatRate;
 
     // this needs to be assigned in inspector
     public GameObject Bullet;
@@ -16,9 +16,15 @@ public class EnemyController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        // We need to implement score system here and call the script or object where the data could be passed
-
+        // No the delay and shooting rate are generated randomly 
+        repeatRate = Random.Range(3.0f, 6.0f);
+        shootDelay = Random.Range(3.0f, 6.0f);
         InvokeRepeating("Shoot", shootDelay, repeatRate);
+    }
+
+    private void Update()
+    {
+        
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -46,6 +52,7 @@ public class EnemyController : MonoBehaviour {
         // If Enemy Collide with player bullet we need to destroy the bullet
         if (collider.tag == "CustomPlayerBullet")
         {
+            Instantiate(explosion, transform.position, transform.rotation);
             Destroy(collider.gameObject); // Destroy the Bullet object
             Destroy(gameObject); // Destroy the Enemy object itself
         }

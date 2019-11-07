@@ -21,6 +21,8 @@ public class GameEventController : MonoBehaviour {
     public int timeLeft;
     public Text countdownText;
 
+    private float enemySpeed = 0.1f;
+
     // There's little exception for locked player Icon in the begining
     // All the Images that need to shown at startng UI and then disappear
     public GameObject playerLockedImage;
@@ -45,16 +47,24 @@ public class GameEventController : MonoBehaviour {
         enemyObjects = new GameObject[enemyShipsCount];
         for (int i = 0; i < enemyShipsCount; i++)
         {
-            Enemy.SetActive(false); 
             int newi = i * 2;
             Vector3 spawnPosition = new Vector3(-6.5f + newi, 7, -2);
+            Enemy.GetComponent<EnemyController>().repeatRate += 1 + i;
             GameObject go =  Instantiate(Enemy, spawnPosition, Quaternion.Euler(180f, 0, 0));
             enemyObjects[i] = go;
         }
+        SetGameObjectsState(enemyObjects, false);
+        
     }
 	
-	void FixedUpdate () {
-
+	void FixedUpdate ()
+    {
+        
+        // Need to get all the exisitng Enemies
+        foreach (GameObject item in GameObject.FindGameObjectsWithTag(enemyTag))
+        {
+            item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y - (Time.deltaTime * enemySpeed), item.transform.position.z);
+        }
 	}
 
     private void Update()

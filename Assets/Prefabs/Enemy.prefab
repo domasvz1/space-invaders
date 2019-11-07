@@ -47,7 +47,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1718679617609952
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,11 +270,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f18adac6f5cd24783c7663087ab83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootDelay: 4
-  repeatRate: 4
+  shootDelay: 1
+  repeatRate: 0
   Bullet: {fileID: 1929467971447096, guid: 7d848e21afe7d8245a94e4389043110a, type: 2}
   BulletSpawn: {fileID: 4824078079665790}
-  explosion: {fileID: 1567419600956630, guid: 5632380b8c70d594f94271622854ab69, type: 2}
+  explosion: {fileID: 1469557686980992, guid: 5632380b8c70d594f94271622854ab69, type: 2}
 --- !u!135 &135974493005299934
 SphereCollider:
   m_ObjectHideFlags: 1

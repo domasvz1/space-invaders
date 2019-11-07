@@ -3979,7 +3979,7 @@ MonoBehaviour:
   BulletShell: {fileID: 1940681184035120, guid: 358ca5f263650014d965d8140a949a49,
     type: 2}
   ShootingSound: {fileID: 210296317}
-  explosion: {fileID: 1567419600956630, guid: 5632380b8c70d594f94271622854ab69, type: 2}
+  explosion: {fileID: 1469557686980992, guid: 5632380b8c70d594f94271622854ab69, type: 2}
 --- !u!65 &210296314
 BoxCollider:
   m_ObjectHideFlags: 0
