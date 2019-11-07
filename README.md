@@ -1,6 +1,6 @@
 # UnityHiringProject Space Invaders
 
- Made with Unity LTS 2017.4.34f1. I slected this version to see how usuable this is for a common Unity user if he want persay to make a casual simple 2D game.
+ Made with Unity LTS 2017.4.34f1. I selected this specific stream to see how usuable this is for a common Unity user if he would decide to make a casual, simple 2D game.
  
  
  You can download Unity LTS here: https://unity3d.com/unity/qa/lts-releases
@@ -17,17 +17,36 @@ Remaking my Unity project, this used to cars, now remaking this to space invader
 Right now the main menu is in fixing stage, fix the starting menu "Menu" Scene made it responsive
 
 
-# Features [will need to be documented soon here]
+# Features
 
-- This could probably be released later (split into releases)
+- Started documenting this from git commits
+
+Implemented UI options in level:
+- Now the game doesnt begin up unti the set timer.
+- The objects are fronzen when the timer is ticking and then they are set to active.
+- After the game the objects are being destroyed (therefore freeing up the memory).
+- Finding Objects with Tags and putting them into array with built in method, the destroying them.
+- Implemneted GameOver method, it is being ivoked when Player Object collides with enemy spacehip.
+- Implemented restart Game scene and quit to main menu option
+
+- Added music to explosions and shots to players and enemies spaceships;
+- Implmented enemy's spawn logic and spawn script with ennemies shooting and reacting.
+- Enemies collision and destruction is implemented (Enemies can collide with each other but they won't die, they recognize each other by tags addded to GameObjects).
+- Made an easily expotable Explosion, Enemy, Player, Bullet prefabs;
+- Finished boundary collision logic around the map, prolonged it, since I made Players movemnt with serilizable struct boundaries and math Clamp I let myself go wider with the boundaries (if the bullets would fly to offset).
+
+- Added GameEventController Gameobject which will run my game on the whole.
 
 
-Will upload screenshots from this game later.
+- Main menu implemented with 4 buttons:
 
 
-# What is letf to do here
 
-Implement enemy arrays 
+# What needs to be done/..
+- Player should also die from catching (colliding with) enemies bullet.
+- Array movemnt logic of the enemys spaceships
+- Timer Script should be merged to GameEventController
+
 
 Annoying things... 
 
