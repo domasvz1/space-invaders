@@ -6,7 +6,8 @@ public class Travel : MonoBehaviour {
 
     private readonly float travelSpeed = 25.0f;
 
-	void Start () {
+	void Start ()
+    {
         GetComponent<Rigidbody>().velocity = transform.up * travelSpeed;
     }
 	

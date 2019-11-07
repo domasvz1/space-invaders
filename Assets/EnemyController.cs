@@ -14,7 +14,6 @@ public class EnemyController : MonoBehaviour {
     public GameObject explosion;
   
 
-
     // Use this for initialization
     void Start () {
         // We need to implement score system here and call the script or object where the data could be passed

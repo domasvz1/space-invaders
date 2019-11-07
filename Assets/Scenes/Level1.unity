@@ -3869,11 +3869,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enemy: {fileID: 1597540856733650, guid: 8470fc130fbb3d849ac216705cbfae48, type: 2}
-  objectsToChnageState:
+  uiObjects:
   - {fileID: 1424893404}
   - {fileID: 231832153}
-  Player: {fileID: 210296310}
+  ingameObjects:
+  - {fileID: 210296310}
   leftEnemyShips: []
+  timeLeft: 3
+  countdownText: {fileID: 262168545}
+  playerLockedImage: {fileID: 1359557306}
 --- !u!1 &210296310
 GameObject:
   m_ObjectHideFlags: 0
@@ -3975,6 +3979,7 @@ MonoBehaviour:
   BulletShell: {fileID: 1940681184035120, guid: 358ca5f263650014d965d8140a949a49,
     type: 2}
   ShootingSound: {fileID: 210296317}
+  explosion: {fileID: 1567419600956630, guid: 5632380b8c70d594f94271622854ab69, type: 2}
 --- !u!65 &210296314
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4210,12 +4215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44ca7e1d1fc09b43a20b6204d6a8710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeLeft: 3
-  countdownText: {fileID: 262168545}
-  PlayerObject: {fileID: 210296310}
-  GameEventObject: {fileID: 166341144}
-  Prefab: {fileID: 1597540856733650, guid: 8470fc130fbb3d849ac216705cbfae48, type: 2}
-  PlayerImage: {fileID: 1359557308}
 --- !u!114 &262168548
 MonoBehaviour:
   m_ObjectHideFlags: 0

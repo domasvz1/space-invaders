@@ -1,56 +1,110 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Experimental.UIElements;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameEventController : MonoBehaviour {
+
     private const string enemyTag = "Enemy";
     public GameObject Enemy;
-    private readonly int enemySize = 5;
+    private readonly int enemyShipsCount = 5;
+    private bool visited = false;
+    private GameObject[] enemyObjects;
 
     [SerializeField]
-    public GameObject[] objectsToChnageState;
-    public GameObject Player;
+    public GameObject[] uiObjects;
+
+    [SerializeField]
+    public GameObject[] ingameObjects;
+
     public List<GameObject> leftEnemyShips;
+    public int timeLeft;
+    public Text countdownText;
+
+    // There's little exception for locked player Icon in the begining
+    // All the Images that need to shown at startng UI and then disappear
+    public GameObject playerLockedImage;
 
     // Use this for initialization
     void Start()
     {
-        SetGameObjectState(objectsToChnageState, false);
+        //Invoking locked picture to be visible untill the Coroutine is finished
+        ChangeObjectState(playerLockedImage, true);
 
-        // This start should be held as enumerator [level logic should be implemented here]
+        // We need our GameEvent object active to make the countdown
+        ChangeObjectState(gameObject, true); 
 
-        List<GameObject> EnemysList = new List<GameObject>(enemySize);
+        // The logic here, we have the list of elements we want to be only active in Game
+        SetGameObjectsState(ingameObjects, false);
+        SetGameObjectsState(uiObjects, false);
 
-        // TO DO in card implement some random shotting rates here
-        for (int i = 0; i < enemySize; i++)
+        // Invoking Couroutine, hiding UI elements, revealing gameobjects
+        StartCoroutine("CountDown");
+
+        // The Spawn Of enemies
+        enemyObjects = new GameObject[enemyShipsCount];
+        for (int i = 0; i < enemyShipsCount; i++)
         {
-            Enemy.SetActive(true);
+            Enemy.SetActive(false); 
             int newi = i * 2;
-            Vector3 spawnPosition = new Vector3(-5f + newi, 7, -2);
-            Instantiate(Enemy, spawnPosition, Quaternion.Euler(180f, 0, 0));
+            Vector3 spawnPosition = new Vector3(-6.5f + newi, 7, -2);
+            GameObject go =  Instantiate(Enemy, spawnPosition, Quaternion.Euler(180f, 0, 0));
+            enemyObjects[i] = go;
         }
-
     }
 	
-	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 	}
+
+    private void Update()
+    { 
+        // Moved logic from Timer to here, it makes more sense to have all timing logic handled not seperately
+        countdownText.text = ("Level Begins In " + timeLeft);
+
+        if (timeLeft <= 0)
+        {
+            if (!visited)
+            {
+                // Stopping coroutine, hidinh text, revealing objects
+                StopCoroutine("CountDown");
+                countdownText.GetComponent<Text>().enabled = false;
+                ChangeObjectState(playerLockedImage, false); // Hiding players icon
+                SetGameObjectsState(ingameObjects, true);
+
+                // Since we have a global array for enemy object, we can pass it to the state changer fucntion
+                SetGameObjectsState(enemyObjects, true);
+                visited = true;
+            }
+        }
+    }
+
+    IEnumerator CountDown()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            timeLeft--;
+        }
+    }
 
     // Need to set active two buttons here (Quit and Restart) since the logic of the game, elswhere should be also stopped
     public void GameOver()
     {
-        SetGameObjectState(objectsToChnageState, true);
-        FreeLeftObjects(GameObject.FindGameObjectsWithTag(enemyTag));
-        ChangeObjectState(Player, false);
+        // Lets check if there's any object left undestroyed
+        string[] tagsToCheck = new string[]{ enemyTag, "CustomPlayerBullet", "CustomEnemyBullet" };
+        SetGameObjectsState(uiObjects, true);
+        foreach (string tag in tagsToCheck)
+        {
+            FreeLeftObjects(GameObject.FindGameObjectsWithTag(tag));
+        }
 
-        // Would be enough to set Player object as unactive here
+        // Change ingame object to invisible state
+        SetGameObjectsState(ingameObjects, false);
+        ChangeObjectState(gameObject, false);
     }
 
-    private void SetGameObjectState(GameObject[] objectsArray, bool state)
+    private void SetGameObjectsState(GameObject[] objectsArray, bool state)
     {
         foreach (GameObject item in objectsArray)
         {
@@ -60,9 +114,13 @@ public class GameEventController : MonoBehaviour {
 
     private void FreeLeftObjects(GameObject[] objectsArray)
     {
-        foreach (GameObject item in objectsArray)
+        // Even though there's no NullReferenceException returned, but just to be sure
+        if (objectsArray != null)
         {
-            Destroy(item);
+            foreach (GameObject item in objectsArray)
+            {
+                Destroy(item);
+            }
         }
     }
 

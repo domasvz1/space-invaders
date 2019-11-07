@@ -21,39 +21,25 @@ public class PlayerController : MonoBehaviour
     public Transform ShotSpawnCoords;
     public GameObject BulletShell;
     public AudioSource ShootingSound;
+    public GameObject explosion;
 
     private readonly float shootingIntensity = 0.4f;
     private float nextBulletTime;
-
 
     public void Start()
     {
         Rigidbody player = GetComponent<Rigidbody>();
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        /*
-        //If a player goes on trigger and sees the tag out of bounds, he just went out of bounds
-        if (collision.CompareTag("OutsideBounds") )
-            gotOutOfBounds = true;
-
-        else if (collision.CompareTag("Slerp") )
-            slowDownThePlayer = true;
-            */
+        // If a Player collides with enemies bullet we need to destroy the bullet and the player
+        if (collider.tag == "CustomEnemyBullet")
+        {
+            Instantiate(explosion, collider.transform.position, collider.transform.rotation);
+            GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>().GameOver();
+        }
     }
-
-    private void OnTriggerExit(Collider collision)
-    { 
-        // For now no more triggers
-        /*
-        if (collision.CompareTag("OutsideBounds"))
-            gotOutOfBounds = false;
-        else if (collision.CompareTag("Slerp"))
-            slowDownThePlayer = false;
-            */
-    }
-
 
     private void Update()
     {
@@ -67,7 +53,6 @@ public class PlayerController : MonoBehaviour
 
         // TO DO other controls here
         // Input Pause option
-        // Input restart option
     }
 
     private void FixedUpdate()
@@ -79,8 +64,6 @@ public class PlayerController : MonoBehaviour
         float horizontalMovement = Input.GetAxis("Horizontal");
         float verticalMovement = Input.GetAxis("Vertical");
 
-
-        
 
         // Get Rigidbody component and chanhe its velocity to vector coords multiplied by speed var
         Vector3 spaceshipPosition = new Vector3(horizontalMovement, verticalMovement, 0.0f);
@@ -100,16 +83,8 @@ public class PlayerController : MonoBehaviour
         player.rotation = Quaternion.Euler(0.0f, 0.0f, player.velocity.x * -1);
 
 
-
-
     }
 
-    /*
-    void PlayEngineSound()
-    {
-        shootingSound.Play();
-    }
-    */
 
     public void Mute()
     {
