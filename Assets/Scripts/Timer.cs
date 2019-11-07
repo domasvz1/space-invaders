@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     // All the game objects that need to be frozen before start
     public GameObject PlayerObject, GameEventObject, Prefab;
 
+    private bool visited = false;
 
     // All the Images that need to shown at startng UI and then disappear
     public Image PlayerImage;
@@ -25,13 +26,18 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
         countdownText.text = ("Level Begins In " + timeLeft);
 
         if (timeLeft <= 0)
         {
-            StopCoroutine("CountDown");
-            countdownText.GetComponent<Text>().enabled = false;
-            SetTheCondition(true, false);
+            if(!visited)
+            {
+                StopCoroutine("CountDown");
+                countdownText.GetComponent<Text>().enabled = false;
+                SetTheCondition(true, false);
+                visited = true;
+            }
         }
     }
 

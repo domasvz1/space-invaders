@@ -1118,6 +1118,11 @@ Prefab:
       propertyPath: m_Colors.m_PressedColor.b
       value: 0.9411765
       objectReference: {fileID: 0}
+    - target: {fileID: 114683130845603416, guid: 192c47df4789ced49866c10da173d0a5,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: LoadingBeforeGame
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 192c47df4789ced49866c10da173d0a5, type: 2}
   m_IsPrefabParent: 0

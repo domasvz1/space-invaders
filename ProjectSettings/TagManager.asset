@@ -5,6 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameEvents
+  - checkpoint
+  - StraightWaypoint
+  - Enemy
+  - Boundaries
+  - PBullet
+  - Taxi
+  - Viper
+  - Sanchez
+  - TurnWaypoint
+  - CustomEnemyBullet
+  - CustomPlayerBullet
   layers:
   - Default
   - TransparentFX
