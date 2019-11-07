@@ -1,6 +1,6 @@
 # UnityHiringProject Space Invaders
 
- Made with Unity LTS 2017.4.34f1. I slected this version to see how usuable this is for a common Unity user if he want persay to make a casual simple 2D game.
+ Made with Unity LTS 2017.4.34f1. I selected this specific stream to see how usuable this is for a common Unity user if he would decide to make a casual, simple 2D game.
  
  
  You can download Unity LTS here: https://unity3d.com/unity/qa/lts-releases
