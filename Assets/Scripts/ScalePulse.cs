@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LogoScript : MonoBehaviour {
+public class ScalePulse : MonoBehaviour {
 
     private float scale = 2.0f;
 
@@ -9,14 +9,12 @@ public class LogoScript : MonoBehaviour {
     {
         get
         {
-            return new WaitForSeconds(0.6f);
+            return new WaitForSeconds(0.5f);
         }
     }
 
     private IEnumerator Start()
     { 
-        // The second we start the menu script we start the menu music
-        GameObject.FindGameObjectWithTag("Music").GetComponent<MusicScript>().PlayMusic();
         
         // I'm using LogoScript in Menu and Instruction Scenes, so I play the continue playing music in both of them
         while (true)

@@ -12,33 +12,36 @@ public class GameEventController : MonoBehaviour {
     private GameObject[] enemyObjects;
 
     [SerializeField]
-    public GameObject[] uiObjects;
-
-    [SerializeField]
-    public GameObject[] ingameObjects;
+    public GameObject[] endGameUIObjects;
 
     public List<GameObject> leftEnemyShips;
     public int timeLeft;
     public Text countdownText;
+    public Text scoreText;
+    public AudioSource gameOverSound;
+    public AudioSource inGameSound;
+
+
+
+    public int score = 0;
 
     private float enemySpeed = 0.1f;
 
     // There's little exception for locked player Icon in the begining
     // All the Images that need to shown at startng UI and then disappear
-    public GameObject playerLockedImage;
+    public GameObject Player;
 
     // Use this for initialization
     void Start()
     {
-        //Invoking locked picture to be visible untill the Coroutine is finished
-        ChangeObjectState(playerLockedImage, true);
+        // When the ship arises, the movemnt of the player is locked
+        Player.GetComponent<PlayerController>().enabled = false;
 
         // We need our GameEvent object active to make the countdown
         ChangeObjectState(gameObject, true); 
 
         // The logic here, we have the list of elements we want to be only active in Game
-        SetGameObjectsState(ingameObjects, false);
-        SetGameObjectsState(uiObjects, false);
+        SetGameObjectsState(endGameUIObjects, false);
 
         // Invoking Couroutine, hiding UI elements, revealing gameobjects
         StartCoroutine("CountDown");
@@ -59,7 +62,8 @@ public class GameEventController : MonoBehaviour {
 	
 	void FixedUpdate ()
     {
-        
+        scoreText.text = "Highscore: " + score;
+
         // Need to get all the exisitng Enemies
         foreach (GameObject item in GameObject.FindGameObjectsWithTag(enemyTag))
         {
@@ -79,12 +83,16 @@ public class GameEventController : MonoBehaviour {
                 // Stopping coroutine, hidinh text, revealing objects
                 StopCoroutine("CountDown");
                 countdownText.GetComponent<Text>().enabled = false;
-                ChangeObjectState(playerLockedImage, false); // Hiding players icon
-                SetGameObjectsState(ingameObjects, true);
+
+                // After the coroutine has ended the movemnt of the player is enabed again
+                Player.GetComponent<PlayerController>().enabled = true;
 
                 // Since we have a global array for enemy object, we can pass it to the state changer fucntion
                 SetGameObjectsState(enemyObjects, true);
                 visited = true;
+                // Start the ingame music
+                inGameSound.Play();
+                inGameSound.loop = true;
             }
         }
     }
@@ -101,17 +109,20 @@ public class GameEventController : MonoBehaviour {
     // Need to set active two buttons here (Quit and Restart) since the logic of the game, elswhere should be also stopped
     public void GameOver()
     {
+        // Stop ingame sound and start playing the rockingGameOver sound
+        inGameSound.Stop();
+        gameOverSound.Play();
+        gameOverSound.volume = 0.7f;
         // Lets check if there's any object left undestroyed
         string[] tagsToCheck = new string[]{ enemyTag, "CustomPlayerBullet", "CustomEnemyBullet" };
-        SetGameObjectsState(uiObjects, true);
+        SetGameObjectsState(endGameUIObjects, true);
         foreach (string tag in tagsToCheck)
         {
             FreeLeftObjects(GameObject.FindGameObjectsWithTag(tag));
         }
 
-        // Change ingame object to invisible state
-        SetGameObjectsState(ingameObjects, false);
-        ChangeObjectState(gameObject, false);
+        // Disable Player Movement
+        Player.GetComponent<PlayerController>().enabled = false;
     }
 
     private void SetGameObjectsState(GameObject[] objectsArray, bool state)

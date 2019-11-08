@@ -39,6 +39,16 @@ public class PlayerController : MonoBehaviour
             Instantiate(explosion, collider.transform.position, collider.transform.rotation);
             GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>().GameOver();
         }
+
+        // If a Player collides with enemy spaceship, it would make sence for player to be destroyed
+        if (collider.tag == "Enemy")
+        {
+            //Destroy both Player and Enemy Spaceships
+            Destroy(gameObject);
+            Destroy(collider.gameObject);
+            Instantiate(explosion, collider.transform.position, collider.transform.rotation);
+            GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>().GameOver();
+        }
     }
 
     private void Update()

@@ -13,12 +13,14 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.4.34f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -244,7 +246,7 @@
     <Compile Include="Assets\Scripts\LoadingBeforeGame.cs" />
     <Compile Include="Assets\Scripts\LoadOtherScene.cs" />
     <Compile Include="Assets\Scripts\LoadSceneAfterTime.cs" />
-    <Compile Include="Assets\Scripts\LogoScript.cs" />
+    <Compile Include="Assets\Scripts\ScalePulse.cs" />
     <Compile Include="Assets\Scripts\MastersIconTravel.cs" />
     <Compile Include="Assets\Scripts\MusicScript.cs" />
     <Compile Include="Assets\Scripts\PlayerCheckPoint.cs" />

@@ -38,16 +38,7 @@ public class EnemyController : MonoBehaviour {
             return;
         }
 
-        // If its player or a bullet shooting we need to istanciate the collision
-        if (collider.tag == "Player" )
-        {
-            
-            Instantiate(explosion, collider.transform.position, collider.transform.rotation);
-
-            // Ending the game after collision
-            Destroy(gameObject); // Destroy the Enemy object itself
-            GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>().GameOver();
-        }
+        GameEventController gameController = GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>();
 
         // If Enemy Collide with player bullet we need to destroy the bullet
         if (collider.tag == "CustomPlayerBullet")
@@ -55,14 +46,12 @@ public class EnemyController : MonoBehaviour {
             Instantiate(explosion, transform.position, transform.rotation);
             Destroy(collider.gameObject); // Destroy the Bullet object
             Destroy(gameObject); // Destroy the Enemy object itself
+            gameController.score += 1;
         }
 
 
         // And the end we add the score, destroy Enemy object and the bullet
         // We add the score 
-
-        //--> TO DO ADD THE SCORE
-        // gameController.AddScore(scoreValue);
 
 
     }
