@@ -22,10 +22,12 @@ public class GameEventController : MonoBehaviour {
     public AudioSource inGameSound;
 
 
-
     public int score = 0;
 
     private float enemySpeed = 0.1f;
+
+    //  This constant declaers the movemnt speed of player in the begining of the game when the timer is ticking
+    private const float movePlayerSpeed = 0.02f;
 
     // There's little exception for locked player Icon in the begining
     // All the Images that need to shown at startng UI and then disappear
@@ -44,20 +46,7 @@ public class GameEventController : MonoBehaviour {
         SetGameObjectsState(endGameUIObjects, false);
 
         // Invoking Couroutine, hiding UI elements, revealing gameobjects
-        StartCoroutine("CountDown");
-
-        // The Spawn Of enemies
-        enemyObjects = new GameObject[enemyShipsCount];
-        for (int i = 0; i < enemyShipsCount; i++)
-        {
-            int newi = i * 2;
-            Vector3 spawnPosition = new Vector3(-6.5f + newi, 7, -2);
-            Enemy.GetComponent<EnemyController>().repeatRate += 1 + i;
-            GameObject go =  Instantiate(Enemy, spawnPosition, Quaternion.Euler(180f, 0, 0));
-            enemyObjects[i] = go;
-        }
-        SetGameObjectsState(enemyObjects, false);
-        
+        StartCoroutine("CountDown");        
     }
 	
 	void FixedUpdate ()
@@ -73,8 +62,6 @@ public class GameEventController : MonoBehaviour {
 
     private void Update()
     { 
-        // Moved logic from Timer to here, it makes more sense to have all timing logic handled not seperately
-        countdownText.text = ("Level Begins In " + timeLeft);
 
         if (timeLeft <= 0)
         {
@@ -88,12 +75,29 @@ public class GameEventController : MonoBehaviour {
                 Player.GetComponent<PlayerController>().enabled = true;
 
                 // Since we have a global array for enemy object, we can pass it to the state changer fucntion
-                SetGameObjectsState(enemyObjects, true);
                 visited = true;
                 // Start the ingame music
                 inGameSound.Play();
                 inGameSound.loop = true;
+
+                // The Spawn Of enemies, this needs to be moved to a method
+                enemyObjects = new GameObject[enemyShipsCount];
+                for (int i = 0; i < enemyShipsCount; i++)
+                {
+                    int newi = i * 2;
+                    Vector3 spawnPosition = new Vector3(-6.5f + newi, 7, -2);
+                    Enemy.GetComponent<EnemyController>().repeatRate += 1 + i;
+                    GameObject go = Instantiate(Enemy, spawnPosition, Quaternion.Euler(180f, 0, 0));
+                    enemyObjects[i] = go;
+                }
+                SetGameObjectsState(enemyObjects, true);
             }
+        }
+        else
+        {
+            Player.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + movePlayerSpeed, Player.transform.position.z);
+            // Moved logic from Timer to here, it makes more sense to have all timing logic handled not seperately
+            countdownText.text = ("Level Begins In " + timeLeft);
         }
     }
 

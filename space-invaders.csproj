@@ -13,14 +13,12 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.4.34f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -237,6 +235,7 @@
     <Compile Include="Assets\CounterSoundTimer.cs" />
     <Compile Include="Assets\DestroyItself.cs" />
     <Compile Include="Assets\DestroyOnCollision.cs" />
+    <Compile Include="Assets\DummyTravel.cs" />
     <Compile Include="Assets\EnemyController.cs" />
     <Compile Include="Assets\Scripts\AnroidIconTravel.cs" />
     <Compile Include="Assets\Scripts\CarLaps.cs" />
@@ -246,13 +245,13 @@
     <Compile Include="Assets\Scripts\LoadingBeforeGame.cs" />
     <Compile Include="Assets\Scripts\LoadOtherScene.cs" />
     <Compile Include="Assets\Scripts\LoadSceneAfterTime.cs" />
-    <Compile Include="Assets\Scripts\ScalePulse.cs" />
     <Compile Include="Assets\Scripts\MastersIconTravel.cs" />
     <Compile Include="Assets\Scripts\MusicScript.cs" />
     <Compile Include="Assets\Scripts\PlayerCheckPoint.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerHandler.cs" />
     <Compile Include="Assets\Scripts\SanchezMovement.cs" />
+    <Compile Include="Assets\Scripts\ScalePulse.cs" />
     <Compile Include="Assets\Scripts\TaxiCheckPoint.cs" />
     <Compile Include="Assets\Scripts\TaxiHandler.cs" />
     <Compile Include="Assets\Scripts\TaxisMovement.cs" />

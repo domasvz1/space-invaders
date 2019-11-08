@@ -13,9 +13,12 @@ public class LoadSceneAfterTime : MonoBehaviour
     IEnumerator Start()
     {
         yield return new WaitForSeconds(time);
+        // Lets free some memory
+        GameObject[] allEnemyDummies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject dummy in allEnemyDummies)
+        {
+            Destroy(dummy);
+        }
         SceneManager.LoadScene(scene);
     }
 }
-
-
-
