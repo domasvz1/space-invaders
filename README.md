@@ -34,8 +34,23 @@ Implemented UI options in level:
 - Enemies collision and destruction is implemented (Enemies can collide with each other but they won't die, they recognize each other by tags addded to GameObjects).
 - Made an easily expotable Explosion, Enemy, Player, Bullet prefabs;
 - Finished boundary collision logic around the map, prolonged it, since I made Players movemnt with serilizable struct boundaries and math Clamp I let myself go wider with the boundaries (if the bullets would fly to offset).
-
 - Added GameEventController Gameobject which will run my game on the whole.
+
+--
+
+- Added the collider to player, so that he would die when triggered by enemies ship bullet;
+- Implemented Enemy ships into GameObject array logic;
+- Enemies now doesnt spawn in the begining when the timer is ticking (they are being deactivated)
+- Connected Timer script to GameEventController and got rid of Timer script
+- When the Gameover is called, the code is finding active objects with set up tags left tags to enemy bullets and player bullets and free memory
+- Now the first shot from every enemy spaceship will be called with different fire rates
+- In GameEventController implemnt random shooting rates set at Start() method
+- There's an array object for deactivated object to reveal.
+- Implementedactive Enem GameObject array movement down the map
+- Added explosion on enemy ship collide
+- Created new explosion prefab and tweaked its styling
+
+
 
 
 - Main menu implemented with 4 buttons:
