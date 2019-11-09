@@ -1,18 +1,18 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class PickupMovement : MonoBehaviour
-{
-    // Two fields for cars movement
+public class ShieldPickupMovement : MonoBehaviour {
+
     public float inicialSpeed;
     public float turningSpeed;
     private Transform target;
 
     void FixedUpdate()
     {
-        target = PickupTravelPath.nextPickuptCheckpoint; // Marking the target, a.k.a the next checkpoint
+        target = ShieldPickupPathStart.nextPickuptCheckpoint; // Marking the target, a.k.a the next checkpoint
 
-        if (PickupTravelPath.nextPickuptCheckpoint != null)
+        if (ShieldPickupPathStart.nextPickuptCheckpoint != null)
         {
             Vector3 direction = target.position - transform.position;
             float angle = -1 * Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
