@@ -10,12 +10,13 @@ TagManager:
   - Enemy
   - Boundaries
   - PBullet
-  - Taxi
-  - Viper
-  - Sanchez
   - TurnWaypoint
   - CustomEnemyBullet
   - CustomPlayerBullet
+  - Music
+  - Shield
+  - Undefined
+  - BulletInc
   layers:
   - Default
   - TransparentFX

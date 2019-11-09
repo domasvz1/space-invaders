@@ -30,9 +30,9 @@ public class EnemyController : MonoBehaviour {
     private void OnTriggerEnter(Collider collider)
     {
         // Implementing collision logic
-
+        
         // If its a boundary or other enemy spaceship, we immediately return from the collapse method
- 
+
         if (collider.tag == "Boundaries" || collider.tag == "Enemy")
         {
             return;
@@ -43,16 +43,15 @@ public class EnemyController : MonoBehaviour {
         // If Enemy Collide with player bullet we need to destroy the bullet
         if (collider.tag == "CustomPlayerBullet")
         {
-            Instantiate(explosion, transform.position, transform.rotation);
             Destroy(collider.gameObject); // Destroy the Bullet object
             Destroy(gameObject); // Destroy the Enemy object itself
+            Instantiate(explosion, transform.position, transform.rotation);
             gameController.score += 1;
         }
 
 
         // And the end we add the score, destroy Enemy object and the bullet
         // We add the score 
-
 
     }
 

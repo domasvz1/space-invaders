@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
     public void Start()
     {
-        Rigidbody player = GetComponent<Rigidbody>();
+        //Rigidbody player = GetComponent<Rigidbody>();
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
         // If a Player collides with enemies bullet we need to destroy the bullet and the player
         if (collider.tag == "CustomEnemyBullet")
         {
+            Destroy(gameObject);
             Instantiate(explosion, collider.transform.position, collider.transform.rotation);
             GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>().GameOver();
         }
@@ -49,6 +50,21 @@ public class PlayerController : MonoBehaviour
             Instantiate(explosion, collider.transform.position, collider.transform.rotation);
             GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>().GameOver();
         }
+
+        // Implement Pickups collison here
+        // If a Player collides with enemies bullet we need to destroy the bullet and the player
+        if (collider.tag == "Shield")
+        {
+
+
+        }
+
+        if (collider.tag == "BulletInc")
+        {
+
+        }
+
+
     }
 
     private void Update()
@@ -61,8 +77,7 @@ public class PlayerController : MonoBehaviour
             ShootingSound.Play();
         }
 
-        // TO DO other controls here
-        // Input Pause option
+        // TO DO Insert Pause option here
     }
 
     private void FixedUpdate()
