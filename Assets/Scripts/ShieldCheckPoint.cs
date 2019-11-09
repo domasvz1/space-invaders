@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class ShieldCheckPoint : MonoBehaviour
 {
-   
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        //If its not game object with the tag "Taxi" then do nothing
-        if (!collision.CompareTag("Shield"))
+        if (!collision.CompareTag("BulletInc"))
+        {
             return;
+        }
 
+        Debug.Log(transform);
         if (transform == PickupHandler.checkpointA[PickupHandler.currentCheckpoint].transform)
         {
             //Check so we dont exceed our checkpoint quantity
