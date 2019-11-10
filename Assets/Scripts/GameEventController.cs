@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class GameEventController : MonoBehaviour {
 
-    private const string enemyTag = "Enemy";
-    public GameObject Enemy;
+    private const string enemyTag = "Enemy", bossTag = "Boss";
+    public GameObject Enemy, Boss;
     private bool visited = false;
 
     [SerializeField]
@@ -19,25 +19,26 @@ public class GameEventController : MonoBehaviour {
     public AudioSource gameOverSound;
     public AudioSource inGameSound;
 
-    public bool gameOver = false;
+    public bool gameOver = false, wonLevel = false;
     public int score = 0, wave = 0;
-    private const int levelWavesCount = 4;
-    private float enemySpeed = 0.2f, increasedSpeedWithWave = 0.5f;
+    private const int wavesInLevel = 1;
+    private float enemySpeed = 0.2f;
     private readonly int firstLineCount = 4, secondLineCount = 5;
 
-    // pickups
+    // Pickup GameObjects
     public GameObject playerSpeedPickup, shootingSpeedPickup, shieldPickup;
-
+    // Pickup Images in game when you have them
     public GameObject playerspeedImage, shootingspeedImage, shieldImage;
-
+        
     public GameObject[] pickupImages;
 
     //  This constant declaers the movemnt speed of player in the begining of the game when the timer is ticking
-    private const float movePlayerSpeed = 0.02f;
+    private const float movePlayerSpeed = 0.02f, increasedSpeedWithWave = 0.5f;
 
     // There's little exception for locked player Icon in the begining
     // All the Images that need to shown at startng UI and then disappear
     public GameObject Player;
+    private bool hasBossSpawned = false;
 
     // Use this for initialization
     public void Start()
@@ -63,12 +64,23 @@ public class GameEventController : MonoBehaviour {
     {
         scoreText.text = "Highscore: " + score;
 
+        // Check if there's no enemies, dont do this
+
         // Need to get all the exisitng Enemies
         foreach (GameObject item in GameObject.FindGameObjectsWithTag(enemyTag))
         {
             item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y - (Time.deltaTime * enemySpeed), item.transform.position.z);
         }
-	}
+
+        if(hasBossSpawned)
+        {
+            GameObject boss = GameObject.FindGameObjectWithTag(bossTag);
+            if (boss.transform.position.y > 6)
+            {
+                boss.transform.position = new Vector3(boss.transform.position.x, boss.transform.position.y - (Time.deltaTime * enemySpeed), boss.transform.position.z);
+            }
+        }
+    }
 
     public void Update()
     {
@@ -77,7 +89,7 @@ public class GameEventController : MonoBehaviour {
             if (timeLeft <= 0)
             {
                 // When the time is up, we check are there any enemies in the map
-                if (GameObject.FindGameObjectsWithTag(enemyTag).Length == 0 && wave < levelWavesCount)
+                if (GameObject.FindGameObjectsWithTag(enemyTag).Length == 0 && wave < wavesInLevel)
                 {
                     // We invoke enemy spawn 
                     SpawnEnemyWave();
@@ -90,6 +102,10 @@ public class GameEventController : MonoBehaviour {
                             // Next level invoking
                             ChangeObjectState(Instantiate(shieldPickup,
                                 shieldPickup.transform.position,
+                                Quaternion.Euler(180f, 0, 0)),
+                                true);
+                            ChangeObjectState(Instantiate(shootingSpeedPickup,
+                                shootingSpeedPickup.transform.position,
                                 Quaternion.Euler(180f, 0, 0)),
                                 true);
                             break;
@@ -112,11 +128,13 @@ public class GameEventController : MonoBehaviour {
                     }
                 }
                 // If the wave count reaches maximum we spawn the Boss Ship
-                else
-                {
-                    SpawnBoss();
+                else if (wave >= wavesInLevel && GameObject.FindGameObjectsWithTag(enemyTag).Length == 0)
+                { 
+                    if(!hasBossSpawned)
+                    { 
+                        SpawnBoss();
+                    }
                 }
-
 
                 if (!visited)
                 {
@@ -143,8 +161,16 @@ public class GameEventController : MonoBehaviour {
             }
         }
         else
-            GameOver();
+        {
+            if (wonLevel)
+            {
 
+            }
+            else
+            {
+                GameOver();
+            }
+        }
     }
 
     public IEnumerator CountDown()
@@ -222,8 +248,14 @@ public class GameEventController : MonoBehaviour {
 
     private void SpawnBoss()
     {
-
+        Instantiate(Boss, new Vector3(-2.3f, 13.6f, -2), Quaternion.Euler(180f, 0, 0));
+        hasBossSpawned = true;
     }
 
-
+    public void WonTheLevel()
+    {
+        inGameSound.Stop();
+        wonLevel = true;
+        gameOver = true;
+    }
 }

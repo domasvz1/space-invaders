@@ -232,6 +232,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BossController.cs" />
     <Compile Include="Assets\CounterSoundTimer.cs" />
     <Compile Include="Assets\DestroyItself.cs" />
     <Compile Include="Assets\DestroyOnCollision.cs" />

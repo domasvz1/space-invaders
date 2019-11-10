@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 8}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 371}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -40,8 +40,8 @@ MonoBehaviour:
     y: 664
     width: 1920
     height: 403
-  m_MinSize: {x: 100, y: 121}
-  m_MaxSize: {x: 4000, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 14}
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 1067
-  m_MinSize: {x: 683, y: 342}
-  m_MaxSize: {x: 12008, y: 8042}
+  m_MinSize: {x: 683, y: 321}
+  m_MaxSize: {x: 12008, y: 8021}
   vertical: 1
   controlID: 9
 --- !u!114 &4
@@ -196,7 +196,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 1117
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 371}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &9
 MonoBehaviour:
@@ -414,19 +414,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scenes
+    - Assets/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Prefabs
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\TestUser\Desktop\space-invaders
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 02290000
-    m_LastClickedID: 10498
-    m_ExpandedIDs: 00000000d8270000ae2800007e2d0000802d0000822d0000842d0000862d0000882d000000ca9a3bffffff7f
+    m_SelectedIDs: c8280000
+    m_LastClickedID: 10440
+    m_ExpandedIDs: 00000000d8270000ae2800009e2d0000a02d0000a22d0000a42d0000a62d0000a82d000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -454,7 +454,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d8270000ae2800007e2d0000802d0000822d0000842d0000862d0000882d0000
+    m_ExpandedIDs: 00000000d8270000ae2800009e2d0000a02d0000a22d0000a42d0000a62d0000a82d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -479,24 +479,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: be73ffff
-    m_LastClickedInstanceID: -35906
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c6230000102800003e2b0000cc2b00000828000088280000b4270000f42700000c280000705cfbffb83a0000b03a00002c280000c82900002a2900007828000052280000b0290000d629000032280000642800003a280000f46a000048280000662a000020310000eecfffff724a0000c62b00001229000000000000ae29000050290000fa280000
+    m_SelectedInstanceIDs: 52f6fbff
+    m_LastClickedInstanceID: -264622
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: c6230000102800003e2b0000cc2b00000828000088280000b4270000f42700000c280000705cfbffb83a0000b03a00002c280000c82900002a2900007828000052280000b0290000d629000032280000642800003a280000f46a000048280000662a000020310000eecfffff724a0000c62b000012290000ae29000050290000fa280000a02800000000000058280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Level1
-      m_OriginalName: Level1
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 10706
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 2}
     m_CreateAssetUtility:
@@ -572,20 +572,20 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 622d0000
-    m_LastClickedID: 0
-    m_ExpandedIDs: 0449f5ff5049f5ff565ef5ff7480f6ffec82f6ff5cc4f6ffbe37f7ff7a3af7ffee3ff7ffb050f7ffca24fdff5827fdff9cfbffff00000000382a0000f677000078310100be3301007c520100c6520100f0560100f8950100549601009c960100
+    m_SelectedIDs: ce8f0000
+    m_LastClickedID: 36814
+    m_ExpandedIDs: a477f9ffe453fbfff653fbff3e12fdff2afaffff50fbffff9cfbffff00000000382a0000802a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Above
-      m_OriginalName: Above
+      m_Name: first engine
+      m_OriginalName: first engine
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 86678
+      m_UserData: -306204
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -625,14 +625,14 @@ MonoBehaviour:
     height: 643
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 15060.128156699999
+  lastFramingTime: 2982.2825359
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.4037761, y: -2.754795, z: -1.8743138}
+    m_Target: {x: 0.3052028, y: 2.4099853, z: 5.6266}
     speed: 2
-    m_Value: {x: 0.4037761, y: -2.754795, z: -1.8743138}
+    m_Value: {x: 0.3052028, y: 2.4099853, z: 5.6266}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -660,15 +660,15 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 9.647001
+    m_Target: 20.091457
     speed: 2
-    m_Value: 9.647001
+    m_Value: 20.091457
   m_Ortho:
     m_Target: 1
     speed: 2
     m_Value: 1
   m_ShowGlobalGrid: 1
-  m_LastSceneViewRotation: {x: 0.0871723, y: -0.8995906, z: 0.21045254, w: 0.37262264}
+  m_LastSceneViewRotation: {x: 0.08717229, y: -0.89959055, z: 0.21045254, w: 0.3726226}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
   m_ReplacementString: 
