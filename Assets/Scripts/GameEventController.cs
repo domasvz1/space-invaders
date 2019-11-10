@@ -25,6 +25,13 @@ public class GameEventController : MonoBehaviour {
     private float enemySpeed = 0.2f, increasedSpeedWithWave = 0.5f;
     private readonly int firstLineCount = 4, secondLineCount = 5;
 
+    // pickups
+    public GameObject playerSpeedPickup, shootingSpeedPickup, shieldPickup;
+
+    public GameObject playerspeedImage, shootingspeedImage, shieldImage;
+
+    public GameObject[] pickupImages;
+
     //  This constant declaers the movemnt speed of player in the begining of the game when the timer is ticking
     private const float movePlayerSpeed = 0.02f;
 
@@ -33,8 +40,12 @@ public class GameEventController : MonoBehaviour {
     public GameObject Player;
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
+        pickupImages = new GameObject[] { playerspeedImage, shootingspeedImage, shieldImage };
+
+        SetObjectsArrayState(pickupImages, false);
+
         // When the ship arises, the movemnt of the player is locked
         Player.GetComponent<PlayerController>().enabled = false;
 
@@ -42,13 +53,13 @@ public class GameEventController : MonoBehaviour {
         ChangeObjectState(gameObject, true); 
 
         // The logic here, we have the list of elements we want to be only active in Game
-        SetGameObjectsState(endGameUIObjects, false);
+        SetObjectsArrayState(endGameUIObjects, false);
 
         // Invoking Couroutine, hiding UI elements, revealing gameobjects
         StartCoroutine("CountDown");        
     }
 	
-	void FixedUpdate ()
+	public void FixedUpdate ()
     {
         scoreText.text = "Highscore: " + score;
 
@@ -59,7 +70,7 @@ public class GameEventController : MonoBehaviour {
         }
 	}
 
-    private void Update()
+    public void Update()
     {
         if (!gameOver)
         {
@@ -72,8 +83,36 @@ public class GameEventController : MonoBehaviour {
                     SpawnEnemyWave();
                     wave += 1; // Increase the
                     enemySpeed += increasedSpeedWithWave;
+
+                    switch (wave)
+                    {
+                        case 1:
+                            // Next level invoking
+                            ChangeObjectState(Instantiate(shieldPickup,
+                                shieldPickup.transform.position,
+                                Quaternion.Euler(180f, 0, 0)),
+                                true);
+                            break;
+                        // After two waves lets simply spawn player speed pickup
+                        case 2:
+                            ChangeObjectState(Instantiate(playerSpeedPickup,
+                                playerSpeedPickup.transform.position,
+                                Quaternion.Euler(180f, 0, 0)),
+                                true);
+                            break;
+                        // After 4 waves lets spawn shield pickup
+                        case 4:
+                            ChangeObjectState(Instantiate(shieldPickup,
+                                shieldPickup.transform.position,
+                                Quaternion.Euler(180f, 0, 0)),
+                                true);
+                            break;
+                        default:
+                            break;
+                    }
                 }
-                else // If the count waves ha passes we spawn the boss
+                // If the wave count reaches maximum we spawn the Boss Ship
+                else
                 {
                     SpawnBoss();
                 }
@@ -108,7 +147,7 @@ public class GameEventController : MonoBehaviour {
 
     }
 
-    IEnumerator CountDown()
+    public IEnumerator CountDown()
     {
         while (true)
         {
@@ -129,14 +168,14 @@ public class GameEventController : MonoBehaviour {
         gameOver = true;
         // Lets check if there's any object left undestroyed
         string[] tagsToCheck = new string[]{ enemyTag, "CustomPlayerBullet", "CustomEnemyBullet" };
-        SetGameObjectsState(endGameUIObjects, true);
+        SetObjectsArrayState(endGameUIObjects, true);
         foreach (string tag in tagsToCheck)
         {
             FreeLeftObjects(GameObject.FindGameObjectsWithTag(tag));
         }
     }
 
-    private void SetGameObjectsState(GameObject[] objectsArray, bool state)
+    public void SetObjectsArrayState(GameObject[] objectsArray, bool state)
     {
         foreach (GameObject item in objectsArray)
         {
@@ -144,7 +183,7 @@ public class GameEventController : MonoBehaviour {
         }  
     }
 
-    private void FreeLeftObjects(GameObject[] objectsArray)
+    public  void FreeLeftObjects(GameObject[] objectsArray)
     {
         // Even though there's no NullReferenceException returned, but just to be sure
         if (objectsArray != null)
@@ -156,12 +195,12 @@ public class GameEventController : MonoBehaviour {
         }
     }
 
-    private void ChangeObjectState(GameObject Object, bool state)
+    public void ChangeObjectState(GameObject Object, bool state)
     {
         Object.SetActive(state);
     }
 
-    private void SpawnEnemyLine(float moveX, float moveY, int enemyNumberInline, float xPosition)
+    public  void SpawnEnemyLine(float moveX, float moveY, int enemyNumberInline, float xPosition)
     {
         // The first one will pawn substracting the moveX
         float yPosition = 14.0f - moveY; // only move down on how much we need to move it
@@ -185,5 +224,6 @@ public class GameEventController : MonoBehaviour {
     {
 
     }
+
 
 }

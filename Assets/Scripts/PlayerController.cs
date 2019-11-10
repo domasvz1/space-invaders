@@ -13,61 +13,96 @@ public struct Boundaries
 
 public class PlayerController : MonoBehaviour
 {
-    //public AudioSource shootingSound;
-    //public GameObject ExhaustParticle;
     public Boundaries Boundaries;
-    public float spaceshipSpeed;
-
     public Transform ShotSpawnCoords;
-    public GameObject BulletShell;
+    public GameObject BulletShell, explosion;
     public AudioSource ShootingSound;
-    public GameObject explosion;
+    private GameEventController gameEventController;
 
-    private readonly float shootingIntensity = 0.4f;
-    private float nextBulletTime;
+    private float shootingIntensity = 0.6f;
+    private float nextBulletTime, playerSpaceshipSpeed = 4.0f;
+
+    public int timeLeftForShootingBoost = 10, timeLeftForSpeedBoost = 10, playersHealth = 1;
+
+    public bool hasShield = false, hasSpeedBoost = false, hasShootingBoost = false, blinking = true;
+
+    public Vector3 scale = new Vector3(1, 1, 1);
+
+
+    public const string speedPickupTag = "PlayerSpeedPickup", shootingPicktupTag = "ShootingSpeedPickup", shieldPickupTag = "ShieldPickup";
 
     public void Start()
     {
-        //Rigidbody player = GetComponent<Rigidbody>();
+        gameEventController = GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>();
     }
 
-    private void OnTriggerEnter(Collider collider)
+    public void OnTriggerEnter(Collider collider)
     {
-        // If a Player collides with enemies bullet we need to destroy the bullet and the player
-        if (collider.tag == "CustomEnemyBullet")
+        // If a Player collides with enemy or enemy bullet spaceship,  the logic remains the same
+        if (collider.tag == "Enemy" || collider.tag == "CustomEnemyBullet")
         {
-            Destroy(gameObject);
-            Instantiate(explosion, collider.transform.position, collider.transform.rotation);
-            GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>().GameOver();
+            // It a player has a full shield he loses one health and nothing happens to him
+            if (playersHealth > 2)
+            {
+                playersHealth -= 1;
+                // TO DO: Shield lose partical explosion
+                Destroy(collider.gameObject);
+            }
+            // If he loses another health, his shield stops working
+            else if (playersHealth == 2)
+            {
+                playersHealth -= 1;
+                StopCoroutine("PulsingIcon");
+                hasShield = false; // Setting health icon to false
+                Destroy(collider.gameObject); // Destroy enemy bullet or spaceship
+                gameEventController.shieldImage.SetActive(false);
+                // TO DO: Shield lose partical explosion
+            }
+            // If the player loses his last health
+            else
+            {
+                Destroy(gameObject);
+                Destroy(collider.gameObject); // Destroy enemy bullet or spaceship
+                Instantiate(explosion, collider.transform.position, collider.transform.rotation);
+                gameEventController.GameOver();
+            }
         }
 
-        // If a Player collides with enemy spaceship, it would make sence for player to be destroyed
-        if (collider.tag == "Enemy")
+        switch (collider.tag)
         {
-            //Destroy both Player and Enemy Spaceships
-            Destroy(gameObject);
-            Destroy(collider.gameObject);
-            Instantiate(explosion, collider.transform.position, collider.transform.rotation);
-            GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>().GameOver();
+            case speedPickupTag:
+                if (!hasSpeedBoost)
+                {
+                    // TO DO Need  to invoke particle explosion here
+                    gameEventController.playerspeedImage.SetActive(true);
+                    Destroy(collider.gameObject);
+                    hasSpeedBoost = true;
+                }
+                break;
+            case shootingPicktupTag:
+                if (!hasShootingBoost)
+                {
+                    // TO DO Need to invoke particle explosion here
+                    gameEventController.shootingspeedImage.SetActive(true);
+                    Destroy(collider.gameObject);
+                    hasShootingBoost = true;
+                }
+                break;
+            case shieldPickupTag:
+                if (!hasShield)
+                {
+                    // TO DO Need to invoke particle explosion here
+                    gameEventController.shieldImage.SetActive(true);
+                    Destroy(collider.gameObject);
+                    hasShield = true;
+                }
+                break;
+            default:
+                break;
         }
-
-        // Implement Pickups collison here
-        // If a Player collides with enemies bullet we need to destroy the bullet and the player
-        if (collider.tag == "Shield")
-        {
-
-
-        }
-
-        if (collider.tag == "BulletInc")
-        {
-
-        }
-
-
     }
 
-    private void Update()
+    public void Update()
     {
         // When you shoot, it checks if you can shoot another bullet and plays the sound of the shot
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextBulletTime)
@@ -77,7 +112,58 @@ public class PlayerController : MonoBehaviour
             ShootingSound.Play();
         }
 
-        // TO DO Insert Pause option here
+        // Use Shooting Boost
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            if (hasShootingBoost)
+            {
+                StartCoroutine("UseShootingBoost");
+                StartCoroutine(PulsingIcon(gameEventController.shootingspeedImage));
+            }
+        }
+
+        // When the time for Player Shooting Boost is over, we shut down Coruotine and reset variables
+        if (timeLeftForShootingBoost <=  0)
+        {
+            StopCoroutine("UseShootingBoost");
+            shootingIntensity = 0.6f;
+            hasShootingBoost = false;
+            timeLeftForShootingBoost = 10;
+            StopCoroutine("PulsingIcon");
+            gameEventController.shootingspeedImage.SetActive(false);
+        }
+
+        // Using Players Ship Speed Boost
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            if (hasSpeedBoost)
+            {
+                StartCoroutine("UseSpeedBoost");
+                StartCoroutine(PulsingIcon(gameEventController.playerspeedImage));
+            }
+        }
+
+        // When the time for Player Speed Boost is over, we shut down Coruotine and reset variables
+        if (timeLeftForSpeedBoost <= 0)
+        {
+            StopCoroutine("UseSpeedBoost");
+            // Reset Player Spaceship speed
+            playerSpaceshipSpeed = 4.0f;
+            hasSpeedBoost = false;
+            timeLeftForSpeedBoost = 10;
+            StopCoroutine("PulsingIcon");
+            gameEventController.playerspeedImage.SetActive(false);
+        }
+
+        // Using shield
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if(playersHealth == 1)
+            {
+                StartCoroutine(PulsingIcon(gameEventController.shieldImage));
+                playersHealth += 2;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -95,10 +181,10 @@ public class PlayerController : MonoBehaviour
 
 
         // If someone forgets to set speed in inspector or it resets, this will be changed to default:
-        if (spaceshipSpeed == 0)
-            spaceshipSpeed = 10;
+        if (playerSpaceshipSpeed == 0)
+            playerSpaceshipSpeed = 10;
 
-        player.velocity = spaceshipPosition * spaceshipSpeed;
+        player.velocity = spaceshipPosition * playerSpaceshipSpeed;
 
         player.transform.position = new Vector3(
             Mathf.Clamp(player.position.x, Boundaries.xMin, Boundaries.xMax),
@@ -106,29 +192,48 @@ public class PlayerController : MonoBehaviour
             player.transform.position.z);
         
         player.rotation = Quaternion.Euler(0.0f, 0.0f, player.velocity.x * -1);
-
-
     }
-
 
     public void Mute()
     {
         AudioListener.pause = !AudioListener.pause;
     }
 
-    private IEnumerator Scale(Rigidbody player)
+ 
+    private IEnumerator UseShootingBoost()
     {
-        /*
-        float scaling = 0.01f;
-        player.angularVelocity.z += 20;
-
-        while (0 < transform.localScale.x)
+        shootingIntensity = 0.2f;
+        while (true)
         {
-            transform.localScale -= new Vector3(0.2f, 0.2f, 0.2f) * Time.deltaTime * scaling;
-            yield return null;
+            yield return new WaitForSeconds(1);
+            timeLeftForShootingBoost -= 1;
         }
-        finishedShrinking = true;
-        */
-        yield return null;
+    }
+
+    private IEnumerator UseSpeedBoost()
+    {
+        playerSpaceshipSpeed = 12.0f;
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+            timeLeftForSpeedBoost -= 1;
+        }
+    }
+
+    private IEnumerator PulsingIcon(GameObject goToPulse)
+    {
+        float scale = 1.0f;
+        // I'm using LogoScript in Menu and Instruction Scenes, so I play the continue playing music in both of them
+        while (true)
+        {
+            if (scale == 1.0f)
+                scale = 0.5f;
+            else if (scale == 0.5f)
+                scale = 1.0f;
+            goToPulse.transform.localScale
+                = new Vector3(scale, scale, scale);
+
+            yield return new WaitForSeconds(0.7f);
+        }
     }
 }

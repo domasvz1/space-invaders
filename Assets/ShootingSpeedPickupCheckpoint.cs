@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class ShootingSpeedPickupCheckpoint : MonoBehaviour {
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.CompareTag("Enemy") || collision.CompareTag("CustomEnemyBullet") || collision.CompareTag("CustomPlayerBullet"))
+        // If anything comes here besides ShootingSpeedPickup collider we ignore it
+        if (!collider.CompareTag("ShootingSpeedPickup") )
         {
             return;
         }
+
         if (transform == ShootingSpeedPickupHandler.checkpointA[ShootingSpeedPickupHandler.currentCheckpoint].transform)
         {
             //Check so we dont exceed our checkpoint quantity

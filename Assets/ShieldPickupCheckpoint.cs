@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ShieldPickupCheckpoint : MonoBehaviour {
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.CompareTag("Enemy") || collision.CompareTag("CustomEnemyBullet") || collision.CompareTag("CustomPlayerBullet"))
+        // If anything comes here besides ShieldPickup collider we ignore it
+        if (!collider.CompareTag("ShieldPickup"))
         {
             return;
         }

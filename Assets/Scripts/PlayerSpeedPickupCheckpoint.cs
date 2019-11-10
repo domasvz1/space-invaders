@@ -7,9 +7,9 @@ public class PlayerSpeedPickupCheckpoint : MonoBehaviour
 {
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.CompareTag("Enemy") || collider.CompareTag("CustomEnemyBullet") || collider.CompareTag("CustomPlayerBullet"))
-        {
-            
+        // If anything comes here besides PlayerSpeedPickup collider we ignore it
+        if (!collider.CompareTag("PlayerSpeedPickup"))
+        { 
             return;
         }
 
@@ -28,7 +28,6 @@ public class PlayerSpeedPickupCheckpoint : MonoBehaviour
 
             // Everytime we make sure that checkpints change too
             PlayerSpeedPickupPathStart.nextPickuptCheckpoint = PlayerSpeedPickupHandler.checkpointA[PlayerSpeedPickupHandler.currentCheckpoint];
-
         }
     }
 }

@@ -14,9 +14,12 @@ TagManager:
   - CustomEnemyBullet
   - CustomPlayerBullet
   - Music
-  - Shield
   - Undefined
+  - PlayerSpeedPickup
+  - ShieldPickup
+  - ShootingSpeedPickup
   - BulletInc
+  - playerSpeedBoostUI
   layers:
   - Default
   - TransparentFX
