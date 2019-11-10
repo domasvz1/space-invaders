@@ -1,11 +1,11 @@
-# Unity Space Invaders [All the massive changes to the game that was done in the last 48 hours will be documented here on Monday evening 2019.11.11. Also the bugs will adressed in that release too.]
+# [All the massive changes to the game that was done in the last 48 hours will be documented here on Monday evening 2019.11.11. Also the bugs will adressed in that release too.]
 
  Made with Unity LTS 2017.4.34f1. I selected this specific stream to see how usuable this is for a common Unity user if he would decide to make a casual, simple 2D game.
  
  
  You can download Unity LTS here: https://unity3d.com/unity/qa/lts-releases
  
- # the Idea behind this
+ # The idea behind this
  
  The idea behind this project is to make it as unique as possible. That is why I've chosen to write this without any additional packages, only used sprites found online for graphics, no assets used.
  
