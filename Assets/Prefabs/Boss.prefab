@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07e806919899564b86311959c6d9e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootDelay: 1
+  shootDelay: 4
   repeatRate: 30
   health: 15
   Bullet: {fileID: 1929467971447096, guid: 7d848e21afe7d8245a94e4389043110a, type: 2}

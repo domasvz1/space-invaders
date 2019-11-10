@@ -8,7 +8,6 @@ public class UpdateMenuItems : MonoBehaviour {
     public new Camera camera;
     public Transform transformPlay;
     public Transform transformInstructions;
-    public Transform transformScores;
     public Transform transformQuit;
 
     // Use this for initialization
@@ -21,7 +20,6 @@ public class UpdateMenuItems : MonoBehaviour {
         // During the update we get transform component and set its position in the middle of the screen
         transformPlay.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y, camera.transform.position.z + 6);
         transformInstructions.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y -8, camera.transform.position.z + 6);
-        transformScores.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y -16, camera.transform.position.z + 6);
-        transformQuit.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y -24, camera.transform.position.z + 6);
+        transformQuit.transform.position = new Vector3(camera.transform.position.x, camera.transform.position.y -16, camera.transform.position.z + 6);
     }
 }

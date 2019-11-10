@@ -615,18 +615,19 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\n   Left Key / D button            Turn Right\n\n   Right Key / A button
-    \t      Turn Left\n\n   SPACE Key\t\t     \t\t\t Shoot\n\n   G Key                 \t\t\t
-    \   Use power\n\n   H Key  \t\t        \t       Chnage power\n\n\n   Copyright
-    down below :\n\n\n is a 1978 arcade game created by Tomohiro Nishikado. It was
-    manufactured and sold by Taito in Japan, and licensed in the United States by
-    the Midway division of Bally. Within the shooter genre, Space Invaders was the
-    first fixed shooter and set the template for the shoot 'em up genre. The goal
-    is to defeat wave after wave of descending aliens with a horizontally moving laser
-    to earn as many points as possible.\nSpace Invaders is considered one of the most
-    influential video games of all time. It helped expand the video game industry
-    from a novelty to a global industry, and ushered in the golden age of arcade video
-    games. It was the inspiration for numerous video games and game designers across
-    different genres, and has been ported and re-released in various forms. \n"
+    \t      Turn Left\n\n   SPACE Key\t\t     \t\t\t Shoot\n\n   Y Key                 \t\t\t
+    \  Use Pickup #1\n\n   U Key  \t\t        \t       Use Pickup #2\n \n   I Key
+    \ \t\t        \t       \t   Use Pickup #3\n\n\n   Copyright down below :\n\n\n
+    is a 1978 arcade game created by Tomohiro Nishikado. It was manufactured and sold
+    by Taito in Japan, and licensed in the United States by the Midway division of
+    Bally. Within the shooter genre, Space Invaders was the first fixed shooter and
+    set the template for the shoot 'em up genre. The goal is to defeat wave after
+    wave of descending aliens with a horizontally moving laser to earn as many points
+    as possible.\nSpace Invaders is considered one of the most influential video games
+    of all time. It helped expand the video game industry from a novelty to a global
+    industry, and ushered in the golden age of arcade video games. It was the inspiration
+    for numerous video games and game designers across different genres, and has been
+    ported and re-released in various forms. \n"
 --- !u!222 &763943656
 CanvasRenderer:
   m_ObjectHideFlags: 0

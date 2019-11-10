@@ -74,8 +74,7 @@ public class GameEventController : MonoBehaviour {
 
         if(hasBossSpawned)
         {
-            GameObject boss = GameObject.FindGameObjectWithTag(bossTag);
-            if (boss.transform.position.y > 6)
+            foreach (GameObject boss in GameObject.FindGameObjectsWithTag(bossTag))
             {
                 boss.transform.position = new Vector3(boss.transform.position.x, boss.transform.position.y - (Time.deltaTime * enemySpeed), boss.transform.position.z);
             }
