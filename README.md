@@ -64,22 +64,15 @@ Implemented UI options in level:
 - Added explosion on enemy ship collide
 - Created new explosion prefab and tweaked its styling
 
-
-
-
-- Main menu implemented with 4 buttons:
-
-
-
-# What needs to be done/..
-- Player should also die from catching (colliding with) enemies bullet.
+- Player dies from catching enemies bullet and colliding with enemy sapceships;
 - Array movemnt logic of the enemys spaceships
-- Timer Script should be merged to GameEventController
 
 
-Annoying things... 
+Annoying things figured out... 
 
-well this took me an hour to figure out.. my movemnt of rigidbody is x y and not z, when using Vector3. This might be handy for anyone using this someday
+Well, this took me an hour to figure out.. my movemnt of rigidbody is x y and not z, when using Vector3. This might be handy for anyone using this someday
+
+NullReferences when calling Object when its not there. I had a ton of cases where the object created on top of its collider, but the collider was disabled, but since the script was running, it was calling the disabled object throwing the null refrence.
 
 
 # Workflow itself:
