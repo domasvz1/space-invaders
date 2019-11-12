@@ -9,7 +9,17 @@
  
  # The idea behind this
  
- The idea behind this project is to make it as unique as possible. That is why I've chosen to write this without any additional packages, only used sprites found online for graphics, no assets used.
+ The idea behind this project is to make it as unique as possible. I have conncted Space Invaders and Space Shooters in one game:
+ - The game starts with the set waves of enemies (right now it it set to 1, but generally with the upcoming releases it will be ~6, the waves can be set manually);
+ - Then the boss spawns;
+ 
+ Pickups (there are 3 types of pickups, which give you slight advantge and when pickup up they show up in the right top of your corner):
+ - Shield pickup (it will give you 2 additional health and blink untill you have that health)
+ - Ship speed boost (gives your spaceship extra speed and will last/blink in the right top corner fro 10 seconds)
+ - Ship shooting speed boost (gives you extra speed while shooting bullets, it will last/blink in the right top corner fro 10 seconds)
+ 
+ 
+ That is why I've chosen to write this without any additional packages, only used sprites found online for graphics, no assets used.
  
 - While making this game, I decided to take some assets from the suggested ones by Unity, music, shaders, textures, models for the game itself.
 
