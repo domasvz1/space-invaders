@@ -2,7 +2,7 @@
 
  * Made with Unity LTS 2017.4.34f1.
  * I selected this specific stream to see how usuable this is for a common Unity user if he would decide to make a casual, simple 2D game.
- * Preffered ratio is 600 x 800
+ * The game is made for 600 x 800 ratio.
  
  
  You can download Unity LTS here: https://unity3d.com/unity/qa/lts-releases
@@ -19,7 +19,7 @@
  - Ship shooting speed boost (gives you extra speed while shooting bullets, it will last/blink in the right top corner fro 10 seconds)
  
  
- That is why I've chosen to write this without any additional packages, only used sprites found online for graphics, no assets used.
+I have chosen to write this without any additional packages, only used sprites found online for graphics, and no assets used, trying to make this as raw as possible.
  
 - While making this game, I decided to take some assets from the suggested ones by Unity, music, shaders, textures, models for the game itself.
 
