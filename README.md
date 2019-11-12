@@ -1,8 +1,8 @@
 # [The Huge update has been done] [Full first release is made] Made everything that was on my list, last commits
 
  * Made with Unity LTS 2017.4.34f1.
- * I selected this specific stream to see how usuable this is for a common Unity user if he would decide to make a casual, simple 2D game.
- * The game is made for 600 x 800 ratio.
+ * I selected this specific stream to see how usuable Unity is for the user if he would decide to make a casual 2D game;
+ * The game is made for 600 x 800 ratio, but can be set to any other ratios in the Game window (in that case black solid borders from both sides will be added)
  
  
  You can download Unity LTS here: https://unity3d.com/unity/qa/lts-releases
