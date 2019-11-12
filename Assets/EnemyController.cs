@@ -48,11 +48,6 @@ public class EnemyController : MonoBehaviour {
             Instantiate(explosion, transform.position, transform.rotation);
             gameController.score += 1;
         }
-
-
-        // And the end we add the score, destroy Enemy object and the bullet
-        // We add the score 
-
     }
 
     public void Shoot()

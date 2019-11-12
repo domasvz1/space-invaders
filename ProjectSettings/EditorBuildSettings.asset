@@ -25,4 +25,7 @@ EditorBuildSettings:
     guid: d71867013f3551e48abcbd8c355916b9
   - enabled: 1
     path: Assets/Scenes/BestScores.unity
-    guid: 984c316b930ca134389fd440b05fa226
+    guid: d236a98f3e4a4d64c884bf1cdc19fa8e
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000

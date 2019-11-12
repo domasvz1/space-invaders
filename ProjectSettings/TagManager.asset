@@ -21,6 +21,8 @@ TagManager:
   - BulletInc
   - playerSpeedBoostUI
   - Boss
+  - Win
+  - Scores
   layers:
   - Default
   - TransparentFX

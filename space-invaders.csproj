@@ -234,13 +234,18 @@
   <ItemGroup>
     <Compile Include="Assets\BossController.cs" />
     <Compile Include="Assets\CounterSoundTimer.cs" />
+    <Compile Include="Assets\DataHandler.cs" />
     <Compile Include="Assets\DestroyItself.cs" />
     <Compile Include="Assets\DestroyOnCollision.cs" />
     <Compile Include="Assets\DummyTravel.cs" />
     <Compile Include="Assets\EnemyController.cs" />
+    <Compile Include="Assets\GameData.cs" />
+    <Compile Include="Assets\HandleDataToFile.cs" />
+    <Compile Include="Assets\JsonWrapper.cs" />
+    <Compile Include="Assets\PlayerScore.cs" />
     <Compile Include="Assets\PlayerSpeedPickupHandler.cs" />
     <Compile Include="Assets\PlayerSpeedPickupPathStart.cs" />
-    <Compile Include="Assets\Scripts\AnroidIconTravel.cs" />
+    <Compile Include="Assets\Refresh.cs" />
     <Compile Include="Assets\Scripts\DestroyFinishedParticle.cs" />
     <Compile Include="Assets\Scripts\GameEventController.cs" />
     <Compile Include="Assets\Scripts\LoadingAfterGame.cs" />

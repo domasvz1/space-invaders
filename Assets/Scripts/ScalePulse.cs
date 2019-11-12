@@ -14,8 +14,8 @@ public class ScalePulse : MonoBehaviour {
     }
 
     private IEnumerator Start()
-    { 
-        
+    {
+        Debug.Log("sdsd");
         // I'm using LogoScript in Menu and Instruction Scenes, so I play the continue playing music in both of them
         while (true)
         {

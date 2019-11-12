@@ -45,11 +45,12 @@ public class BossController : MonoBehaviour {
             {
                 health -= 1;
             }
-            else
+            else // If its bosses last health, a winning condition will be set to a player
             {
                 Destroy(gameObject); // Destroy the Enemy object itself
                 Instantiate(bossExplosion, transform.position, transform.rotation);
                 gameController.score += 20; // add 20 points for killing boss
+                gameController.Winning();
             }
             Destroy(collider.gameObject); // Destroy the Bullet object
         }

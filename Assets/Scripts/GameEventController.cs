@@ -6,20 +6,20 @@ using UnityEngine.UI;
 public class GameEventController : MonoBehaviour {
 
     private const string enemyTag = "Enemy", bossTag = "Boss";
-    public GameObject Enemy, Boss;
-    private bool visited = false;
+    public GameObject enemy, boss;
+    private bool visited = false, topScored = false;
 
     [SerializeField]
     public GameObject[] endGameUIObjects;
 
     public List<GameObject> leftEnemyShips;
     public int timeLeft;
-    public Text countdownText;
-    public Text scoreText;
-    public AudioSource gameOverSound;
-    public AudioSource inGameSound;
+    public Text countdownText, scoreText;
 
-    public bool gameOver = false, wonLevel = false;
+    public GameObject userNameSubmitButton, userNameInput, endGameText;
+    public AudioSource gameOverSound, gameWinnerSound, inGameSound;
+
+    public bool gameOver = false;
     public int score = 0, wave = 0;
     private const int wavesInLevel = 1;
     private float enemySpeed = 0.2f;
@@ -56,6 +56,13 @@ public class GameEventController : MonoBehaviour {
         // The logic here, we have the list of elements we want to be only active in Game
         SetObjectsArrayState(endGameUIObjects, false);
 
+        // Winning and losing texts
+        ChangeObjectState(endGameText, false);
+
+        // User submiting username
+        ChangeObjectState(userNameInput, false);
+        ChangeObjectState(userNameSubmitButton, false);
+
         // Invoking Couroutine, hiding UI elements, revealing gameobjects
         StartCoroutine("CountDown");        
     }
@@ -63,8 +70,6 @@ public class GameEventController : MonoBehaviour {
 	public void FixedUpdate ()
     {
         scoreText.text = "Highscore: " + score;
-
-        // Check if there's no enemies, dont do this
 
         // Need to get all the exisitng Enemies
         foreach (GameObject item in GameObject.FindGameObjectsWithTag(enemyTag))
@@ -159,15 +164,15 @@ public class GameEventController : MonoBehaviour {
                 countdownText.text = ("Level Begins In " + timeLeft);
             }
         }
-        else
+        else // Game over is here, but we always check if the player has collected the amount of points needed to push others players
         {
-            if (wonLevel)
+            DataHandler dh = GetComponent<DataHandler>();
+            // If the score is higher than at least one the users
+            if (dh.IsScoreInTopList(score) && !topScored)
             {
-
-            }
-            else
-            {
-                GameOver();
+                ChangeObjectState(userNameInput, true);
+                ChangeObjectState(userNameSubmitButton, true);
+                topScored = true;
             }
         }
     }
@@ -188,16 +193,23 @@ public class GameEventController : MonoBehaviour {
         inGameSound.Stop();
         gameOverSound.Play();
         gameOverSound.volume = 0.7f;
-
-        // Stop the update cycle
-        gameOver = true;
-        // Lets check if there's any object left undestroyed
-        string[] tagsToCheck = new string[]{ enemyTag, "CustomPlayerBullet", "CustomEnemyBullet" };
         SetObjectsArrayState(endGameUIObjects, true);
-        foreach (string tag in tagsToCheck)
-        {
-            FreeLeftObjects(GameObject.FindGameObjectsWithTag(tag));
-        }
+        ChangeObjectState(endGameText, true);
+        gameOver = true; // finish game cycle
+        ClearEnemyGear();
+    }
+
+    public void Winning()
+    {
+        inGameSound.Stop();
+        gameWinnerSound.Play();
+        gameWinnerSound.volume = 0.8f;
+        SetObjectsArrayState(endGameUIObjects, true);
+        endGameText.GetComponent<Text>().text = "You win";
+        endGameText.GetComponent<Text>().color = Color.green;
+        ChangeObjectState(endGameText, true);
+        gameOver = true;  // finish game cycle
+        // Lets check if there's any object left undestroyed
     }
 
     public void SetObjectsArrayState(GameObject[] objectsArray, bool state)
@@ -233,8 +245,8 @@ public class GameEventController : MonoBehaviour {
         {
             xPosition += moveX;
             Vector3 spawnPosition = new Vector3(xPosition, yPosition, -2);
-            Enemy.GetComponent<EnemyController>().repeatRate += 1 + i;
-            Instantiate(Enemy, spawnPosition, Quaternion.Euler(180f, 0, 0));
+            enemy.GetComponent<EnemyController>().repeatRate += 1 + i;
+            Instantiate(enemy, spawnPosition, Quaternion.Euler(180f, 0, 0));
         }
     }
 
@@ -247,14 +259,16 @@ public class GameEventController : MonoBehaviour {
 
     private void SpawnBoss()
     {
-        Instantiate(Boss, new Vector3(-2.3f, 13.6f, -2), Quaternion.Euler(180f, 0, 0));
+        Instantiate(boss, new Vector3(-2.3f, 13.6f, -2), Quaternion.Euler(180f, 0, 0));
         hasBossSpawned = true;
     }
 
-    public void WonTheLevel()
+    public void ClearEnemyGear()
     {
-        inGameSound.Stop();
-        wonLevel = true;
-        gameOver = true;
+        string[] tagsToCheck = new string[] { enemyTag, "CustomPlayerBullet", "CustomEnemyBullet" };
+        foreach (string tag in tagsToCheck)
+        {
+            FreeLeftObjects(GameObject.FindGameObjectsWithTag(tag));
+        }
     }
 }
