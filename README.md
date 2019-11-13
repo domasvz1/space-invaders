@@ -1,6 +1,6 @@
 # [The Huge update has been done] [Full first release is made] Made everything that was on my list, last commits
 
- * Made with Unity LTS 2017.4.34f1.
+ * Made with Unity LTS 2017.4.34f1 (That means that the project works on all supported Unity versions 2018.4, 2019.. etc)
  * I have selected this specific stream to see how usuable Unity is for a common user to make a casual 2D game;
  * The game is made for 600 x 800 ratio, but can be set to any other ratios in the Game window (in that case black solid borders from both sides will be added)
  
@@ -8,11 +8,11 @@
  
  # The idea behind this
  
- The idea behind this project is to make it as unique as possible. I have conncted Space Invaders and Space Shooters in one game.
-  
-I have chosen to write this without any additional packages, only used sprites found online for graphics, and no assets used, trying to make this as raw as possible.
+ * The idea behind this project is to make it as unique as possible. I have conncted Space Invaders and Space Shooters in one game;
  
-- While making this game, I decided to take some assets from the suggested ones by Unity, music, shaders, textures, models for the game itself.
+ * I have chosen to write this without any additional packages, only used sprites found online for graphics, and no assets used, trying to make this as raw as possible;
+ 
+* While making this game, I decided to take some assets from the suggested ones by Unity, music, shaders, textures, models for the game itself;
 
 # Features
 
@@ -51,79 +51,80 @@ InGame features (Includes 1 scene "Level1")
 * Ship shooting speed boost (gives you extra speed while shooting bullets, it will last/blink in the right top corner fro 10 seconds)
 
 
-Scripting side
----------------------------------------------------------------
+# Scripting side
+--------------------------------------------------------------------
 
---
 # .Json filewriter/filereader
-* .json read/write implementation
-- Main 3 classes created for it
-- DataHandler and 2 wrappers, to make Json look like most of jsomn files look.
-- Implemented Highscores, .json read/write to file.
-- Made sort method, which checks where 
+- Main 3 classes created for it:
+  * DataHandler (the most important class) has SaveData(), SortHighscoresArray(), InsertFreshData(), IsScoreInTopList(int checkedScore) methods which is used for determining the TOP 5 players and checking if the current highscore can be applicable for TOP 5;
+- To the .json DataHandler class added and two Serializable classes PlayerScore() (which contains players data for hgishcore -> name, Score, and place) and JsonWrapper which is contained as the object and has all the arrays and data inside (made this so that .json file would look better);
+- DataHandler and 2 wrappers, to make Json look like most of jsomn files look;
+- Implemented Highscores, .json read/write to file;
+- Made sort method, which checks where;
+- When the game is over, the score is passed to file writer to check if the score is writable to file;
 
---
+
 # Game Running (Game Events)
-- GameEvent GameObject has class GameEventControlelr which is responsible for how game is running.
+- GameEvent GameObject has class GameEventControlelr which is responsible for how game is running;
 - Enemy objects are constantly moving down to Y axis.
 - After the set waves of spaceship spawn, then the boss spawns;
 - The spaceship's waves speed increases with every wave
--
+- Implemneted GameOver method, it is being ivoked when Player Object collides with enemy spacehip;
+- Implemneted Winning method, it is being ivoked when Player Object defetas (the selected amount of enemy waves) and the boss;
+- In EnemyController implemnted random shooting repeat rate and shooting delay with Math.Random (thi means that every enemy spaceship will have the different rates set for them defending on Math function);
+- Enemies now doesnt spawn up until the starting timer is over;
+- Implmented enemies waves spawn logic and spawn script with ennemies shooting and reacting;
 
---
+
 # Collision logic and detection
 - Added the collider to:
  * Player, so that he would be destroyed when triggered by enemies ship or bullets;
  * Enemy, so that he would be destroyed when triggered by players ship or players bullets, but not enemys bullets, ships or boss;
  * Boss, so that he would be destroyed when triggered by players bullets, if he has less than 1 health.
-
-
-
-
-Implemented UI options in level:
- 
-
-- Implemneted GameOver method, it is being ivoked when Player Object collides with enemy spacehip.
-- Implemented restart Game scene and quit to main menu option
-
-- Added music to explosions and shots to players and enemies spaceships;
-- Implmented enemy's spawn logic and spawn script with ennemies shooting and reacting.
 - Enemies collision and destruction is implemented (Enemies can collide with each other but they won't die, they recognize each other by tags addded to GameObjects).
-- Made an easily expotable Explosion, Enemy, Player, Bullet prefabs;
 - Finished boundary collision logic around the map, prolonged it, since I made Players movemnt with serilizable struct boundaries and math Clamp I let myself go wider with the boundaries (if the bullets would fly to offset).
 
 
---
 # UI 
 
+- Implemented "LoadOtherScene" class which laods the passed Scene.
 - Level doesn't start up until the timer count to 3 (timer is displayed to the player), the classes that spawn or move objects are fronzen when the timer is ticking and then they are set to active.
-
 - Implemented "End Game text" and depending on which state of the game is that, it shows "Game Over" if you lose or "You Win" if you win
 - UI elements and being deactivated in the beginning and spawned only when necessary;
-- Added "Enter your name input" field when its empty it will not allow player to continue, but if player till preses continue it fils the field with "Random Player" text and then player can press submit button.
-- When the game is over, the score is passed to file writer to check if the score is writable to file.
+- When the game is over, added "Enter your name" inpu field. When its empty, it will not allow player to continue, but if player preses continue, it fils the field with string "Random Player" text and then player can press submit button;
 
 
-- Enemies now doesnt spawn in the begining when the timer is ticking (they are being deactivated)
+# Particles, graphics and materials 
+
+- Added music when:
+ * Game is Over;
+ * When the bullet is being shot;
+ * In main menu Scene is active;
+ * When the game is won;
+ * When the agme is loading in "LoadingBeforeGame";
+ 
+ - Added explosion particles when:
+  * Players spaceship explodes;
+  * Enemy spaceship explodes;
 
 
-- Now the first shot from every enemy spaceship will be called with different fire rates
-- In GameEventController implemnt random shooting rates set at Start() method
-- There's an array object for deactivated object to reveal.
-
-
-- Created new explosion prefab, boss explosion prefab, shooting bullet prefabs with particles.
-
-
---
 # Memory/ unused object checking in the scene
 
 - When the Gameover is called, the code is finding active objects with set up tags left tags to enemy bullets and player bullets and free memory;
 - Enemy object are put in the array and being invokeed, after collision they are being destroyed;
-- Some UI objects that are not necessary in the Scene are made to prefabs and only spawned when used.
-- Finding Objects with Tags and putting them into array with built in method, the destroying them.
+- Some UI objects that are not necessary in the Scene are made to prefabs and only spawned when used;
+- Finding Objects with Tags and putting them into array with built in method, the destroying them;
+- ClearEnemyGear() run foreach cycle with given string Tags array and uses FreeLeftObjects() method to destroy left unsued Objects.
+- Made an easily expotable Explosion, Boss, Enemy, Player, Bullet prefabs, only Player object is used from these. Others -> Enemy, Boss, Bullets are exported from the prefabs folder and added to GameEventController script;
+
 
 -----------------------------------------------------------------------
+# Fixed some found bugs
+- When the game ends objects with EnemyBullet tag not all the objects are fully destroyed;
+- Pulsing effect text doesn't work on EndGame text in levels;
+- Inventory pickups stays flashing even after player dies
+
+
 # Annoying things that I have figured out figured out while doing...
 
 Well, this took me an hour to figure out.. my movemnt of rigidbody is x y and not z, when using Vector3. This might be handy for anyone using this someday
