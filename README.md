@@ -51,10 +51,9 @@ InGame features (Includes 1 scene "Level1")
 * Ship shooting speed boost (gives you extra speed while shooting bullets, it will last/blink in the right top corner fro 10 seconds)
 
 
-Scripting side
+# Scripting side
 --------------------------------------------------------------------
 
---
 # .Json filewriter/filereader
 - Main 3 classes created for it:
   * DataHandler (the most important class) has SaveData(), SortHighscoresArray(), InsertFreshData(), IsScoreInTopList(int checkedScore) methods which is used for determining the TOP 5 players and checking if the current highscore can be applicable for TOP 5;
@@ -65,7 +64,6 @@ Scripting side
 - When the game is over, the score is passed to file writer to check if the score is writable to file;
 
 
---
 # Game Running (Game Events)
 - GameEvent GameObject has class GameEventControlelr which is responsible for how game is running;
 - Enemy objects are constantly moving down to Y axis.
@@ -78,7 +76,6 @@ Scripting side
 - Implmented enemies waves spawn logic and spawn script with ennemies shooting and reacting;
 
 
---
 # Collision logic and detection
 - Added the collider to:
  * Player, so that he would be destroyed when triggered by enemies ship or bullets;
@@ -88,7 +85,6 @@ Scripting side
 - Finished boundary collision logic around the map, prolonged it, since I made Players movemnt with serilizable struct boundaries and math Clamp I let myself go wider with the boundaries (if the bullets would fly to offset).
 
 
---
 # UI 
 
 - Implemented "LoadOtherScene" class which laods the passed Scene.
@@ -98,8 +94,6 @@ Scripting side
 - When the game is over, added "Enter your name" inpu field. When its empty, it will not allow player to continue, but if player preses continue, it fils the field with string "Random Player" text and then player can press submit button;
 
 
-
---
 # Particles, graphics and materials 
 
 - Added music when:
@@ -114,7 +108,6 @@ Scripting side
   * Enemy spaceship explodes;
 
 
---
 # Memory/ unused object checking in the scene
 
 - When the Gameover is called, the code is finding active objects with set up tags left tags to enemy bullets and player bullets and free memory;
