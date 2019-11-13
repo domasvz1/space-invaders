@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class GameEventController : MonoBehaviour {
 
-    private const string enemyTag = "Enemy", bossTag = "Boss";
-    public GameObject enemy, boss;
+    private const string enemyTag = "Enemy", bossTag = "Boss", eBTag = "CustomPlayerBullet", pBTag = "CustomEnemyBullet",
+        speedPickupTag = "PlayerSpeedPickup", shootingPicktupTag = "ShootingSpeedPickup", shieldPickupTag = "ShieldPickup";
+
+    // Defined three main objects in this game, player, enemy spacehip which will be duplicated into more spaceships and boss
+    public GameObject enemy, boss, player;
     private bool visited = false, topScored = false;
 
     [SerializeField]
@@ -22,8 +25,9 @@ public class GameEventController : MonoBehaviour {
     public bool gameOver = false;
     public int score = 0, wave = 0;
     private const int wavesInLevel = 1;
-    private float enemySpeed = 0.2f;
+    private float enemySpeed = 0.2f, initialScale = 2.0f;
     private readonly int firstLineCount = 4, secondLineCount = 5;
+
 
     // Pickup GameObjects
     public GameObject playerSpeedPickup, shootingSpeedPickup, shieldPickup;
@@ -35,9 +39,6 @@ public class GameEventController : MonoBehaviour {
     //  This constant declaers the movemnt speed of player in the begining of the game when the timer is ticking
     private const float movePlayerSpeed = 0.02f, increasedSpeedWithWave = 0.5f;
 
-    // There's little exception for locked player Icon in the begining
-    // All the Images that need to shown at startng UI and then disappear
-    public GameObject Player;
     private bool hasBossSpawned = false;
 
     // Use this for initialization
@@ -48,7 +49,7 @@ public class GameEventController : MonoBehaviour {
         SetObjectsArrayState(pickupImages, false);
 
         // When the ship arises, the movemnt of the player is locked
-        Player.GetComponent<PlayerController>().enabled = false;
+        player.GetComponent<PlayerController>().enabled = false;
 
         // We need our GameEvent object active to make the countdown
         ChangeObjectState(gameObject, true); 
@@ -147,7 +148,7 @@ public class GameEventController : MonoBehaviour {
                     countdownText.GetComponent<Text>().enabled = false;
 
                     // After the coroutine has ended the movemnt of the player is enabed again
-                    Player.GetComponent<PlayerController>().enabled = true;
+                    player.GetComponent<PlayerController>().enabled = true;
 
                     // Since we have a global array for enemy object, we can pass it to the state changer fucntion
                     visited = true;
@@ -159,7 +160,7 @@ public class GameEventController : MonoBehaviour {
 
             else
             {
-                Player.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y + movePlayerSpeed, Player.transform.position.z);
+                player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + movePlayerSpeed, player.transform.position.z);
                 // Moved logic from Timer to here, it makes more sense to have all timing logic handled not seperately
                 countdownText.text = ("Level Begins In " + timeLeft);
             }
@@ -195,6 +196,7 @@ public class GameEventController : MonoBehaviour {
         gameOverSound.volume = 0.7f;
         SetObjectsArrayState(endGameUIObjects, true);
         ChangeObjectState(endGameText, true);
+        StartCoroutine(ScaleObject(endGameText));
         gameOver = true; // finish game cycle
         ClearEnemyGear();
     }
@@ -208,6 +210,7 @@ public class GameEventController : MonoBehaviour {
         endGameText.GetComponent<Text>().text = "You win";
         endGameText.GetComponent<Text>().color = Color.green;
         ChangeObjectState(endGameText, true);
+        StartCoroutine(ScaleObject(endGameText));
         gameOver = true;  // finish game cycle
         // Lets check if there's any object left undestroyed
     }
@@ -265,10 +268,25 @@ public class GameEventController : MonoBehaviour {
 
     public void ClearEnemyGear()
     {
-        string[] tagsToCheck = new string[] { enemyTag, "CustomPlayerBullet", "CustomEnemyBullet" };
+        string[] tagsToCheck = new string[] { enemyTag, pBTag, eBTag, speedPickupTag, shootingPicktupTag, shieldPickupTag };
         foreach (string tag in tagsToCheck)
         {
             FreeLeftObjects(GameObject.FindGameObjectsWithTag(tag));
+        }
+    }
+
+    private IEnumerator ScaleObject(GameObject go)
+    {
+        // I'm using LogoScript in Menu and Instruction Scenes, so I play the continue playing music in both of them
+        while (true)
+        {
+            if (initialScale.Equals(2.0f))
+                initialScale = 1.6f;
+            else if (initialScale.Equals(1.6f))
+                initialScale = 2.0f;
+            go.GetComponent<Text>().transform.localScale = new Vector3(initialScale, initialScale, initialScale);
+
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }
