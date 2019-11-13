@@ -17,16 +17,15 @@ public class PlayerController : MonoBehaviour
     public Transform ShotSpawnCoords;
     public GameObject BulletShell, explosion;
     public AudioSource ShootingSound;
+    public GameObject PickupExplosion;
     private GameEventController gameEventController;
 
     private float shootingIntensity = 0.6f;
     private float nextBulletTime, playerSpaceshipSpeed = 4.0f;
-
     public int timeLeftForShootingBoost = 10, timeLeftForSpeedBoost = 10, playersHealth = 1;
 
     public bool hasShield = false, hasSpeedBoost = false, hasShootingBoost = false, blinking = true;
 
-    public Vector3 scale = new Vector3(1, 1, 1);
 
 
     public const string speedPickupTag = "PlayerSpeedPickup", shootingPicktupTag = "ShootingSpeedPickup", shieldPickupTag = "ShieldPickup";
@@ -186,6 +185,11 @@ public class PlayerController : MonoBehaviour
 
         player.velocity = spaceshipPosition * playerSpaceshipSpeed;
 
+
+        // For now x,y min boundaries are:
+        // X  "min -6.45f" and "max 1.6f"
+        // Y  "min 1.29f" and "max 7"
+        // This can be tweaked into method that would catch camera position and determine boundaries for object
         player.transform.position = new Vector3(
             Mathf.Clamp(player.position.x, Boundaries.xMin, Boundaries.xMax),
             Mathf.Clamp(player.position.y, Boundaries.yMin, Boundaries.yMax),

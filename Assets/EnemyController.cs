@@ -22,11 +22,6 @@ public class EnemyController : MonoBehaviour {
         InvokeRepeating("Shoot", shootDelay, repeatRate);
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider collider)
     {
         // Implementing collision logic

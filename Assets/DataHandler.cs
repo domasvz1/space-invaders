@@ -19,11 +19,6 @@ public class DataHandler : MonoBehaviour {
         //ResetTopPlayers();
     }
 
-	// Update is called once per frame
-	void Update () {
-
-    }
-
     public void SaveData()
     {
         PlayerScore sc = new PlayerScore();
