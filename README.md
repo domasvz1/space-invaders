@@ -45,18 +45,20 @@ InGame features (Includes 1 scene "Level1")
 - The game starts with the set waves of enemies (right now it it set to 1, but generally with the upcoming releases it will be ~6, the waves can be set manually);
  - Then the boss spawns;
 
- -- Pickups (there are 3 types of pickups, which give you slight advantge and when pickup up they show up in the right top of your corner):
-* Shield pickup (it will give you 2 additional health and blink untill you have that health)
-* Ship speed boost (gives your spaceship extra speed and will last/blink in the right top corner fro 10 seconds)
-* Ship shooting speed boost (gives you extra speed while shooting bullets, it will last/blink in the right top corner fro 10 seconds)
-
+ -- Powerups
+  * In the "How to play" option in the Main Menu you can find the instrcutions. After picking the pickups you will need to press "Y",  "U" and "I" buttons depending on which powerup you pick:
+  
+ There are 3 types of powerups
+ * [Y BUTTON] Ship shooting speed boost (gives you extra speed while shooting bullets, it will last/blink in the right top corner fro 10 seconds);
+ * [U BUTTON] Ship speed boost (gives your spaceship extra speed and will last/blink in the right top corner fro 10 seconds);
+ * [I BUTTON] Shield pickup (it will give you 2 additional health and blink in the inventory untill you have that health);
 
 # Scripting side
 --------------------------------------------------------------------
 
 # .Json filewriter/filereader
 - Main 3 classes created for it:
-  * DataHandler (the most important class) has SaveData(), SortHighscoresArray(), InsertFreshData(), IsScoreInTopList(int checkedScore) methods which is used for determining the TOP 5 players and checking if the current highscore can be applicable for TOP 5;
+  * DataHandler (the most important class), SortHighscoresArray(), InsertFreshData(), IsScoreInTopList(int checkedScore) methods which is used for determining the TOP 5 players and checking if the current highscore can be applicable for TOP 5;
 - To the .json DataHandler class added and two Serializable classes PlayerScore() (which contains players data for hgishcore -> name, Score, and place) and JsonWrapper which is contained as the object and has all the arrays and data inside (made this so that .json file would look better);
 - DataHandler and 2 wrappers, to make Json look like most of jsomn files look;
 - Implemented Highscores, .json read/write to file;
@@ -119,6 +121,12 @@ InGame features (Includes 1 scene "Level1")
 
 
 -----------------------------------------------------------------------
+
+# Whats really missing from 
+- Standarts on code
+- Improved pcikups and pickup documentation
+
+
 # Fixed some found bugs
 - When the game ends objects with EnemyBullet tag not all the objects are fully destroyed;
 - Pulsing effect text doesn't work on EndGame text in levels;
