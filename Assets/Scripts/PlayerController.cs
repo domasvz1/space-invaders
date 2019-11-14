@@ -15,10 +15,10 @@ public class PlayerController : MonoBehaviour
 {
     public Boundaries Boundaries;
     public Transform ShotSpawnCoords;
-    public GameObject BulletShell, explosion;
+    public GameObject BulletShell, explosion, pickupExplosion;
     public AudioSource ShootingSound;
-    public GameObject PickupExplosion;
     private GameEventController gameEventController;
+    private ParticleSystem.MainModule main;
 
     private float shootingIntensity = 0.6f;
     private float nextBulletTime, playerSpaceshipSpeed = 4.0f;
@@ -26,12 +26,11 @@ public class PlayerController : MonoBehaviour
 
     public bool hasShield = false, hasSpeedBoost = false, hasShootingBoost = false, blinking = true;
 
-
-
     public const string speedPickupTag = "PlayerSpeedPickup", shootingPicktupTag = "ShootingSpeedPickup", shieldPickupTag = "ShieldPickup";
 
     public void Start()
     {
+        main = pickupExplosion.GetComponent<ParticleSystem>().main;
         gameEventController = GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>();
     }
 
@@ -55,7 +54,7 @@ public class PlayerController : MonoBehaviour
                 hasShield = false; // Setting health icon to false
                 Destroy(collider.gameObject); // Destroy enemy bullet or spaceship
                 gameEventController.shieldImage.SetActive(false);
-                // TO DO: Shield lose partical explosion
+                // TO DO LOSE LAST SHIELD
             }
             // If the player loses his last health
             else
@@ -72,28 +71,31 @@ public class PlayerController : MonoBehaviour
             case speedPickupTag:
                 if (!hasSpeedBoost)
                 {
-                    // TO DO Need  to invoke particle explosion here
                     gameEventController.playerspeedImage.SetActive(true);
                     Destroy(collider.gameObject);
                     hasSpeedBoost = true;
+                    main.startColor = Color.red;
+                    Instantiate(pickupExplosion, collider.transform.position, collider.transform.rotation);
                 }
                 break;
             case shootingPicktupTag:
                 if (!hasShootingBoost)
                 {
-                    // TO DO Need to invoke particle explosion here
                     gameEventController.shootingspeedImage.SetActive(true);
                     Destroy(collider.gameObject);
                     hasShootingBoost = true;
+                    main.startColor = Color.yellow;
+                    Instantiate(pickupExplosion, collider.transform.position, collider.transform.rotation);
                 }
                 break;
             case shieldPickupTag:
                 if (!hasShield)
                 {
-                    // TO DO Need to invoke particle explosion here
                     gameEventController.shieldImage.SetActive(true);
                     Destroy(collider.gameObject);
                     hasShield = true;
+                    main.startColor = Color.green;
+                    Instantiate(pickupExplosion, collider.transform.position, collider.transform.rotation);
                 }
                 break;
             default:

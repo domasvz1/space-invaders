@@ -26,10 +26,9 @@ public class GameEventController : MonoBehaviour {
 
     public bool gameOver = false;
     public int score = 0, wave = 0;
-    private const int wavesInLevel = 1;
-    private float enemySpeed = 0.2f, initialScale = 2.0f;
+    public int wavesInLevel = 4;
+    private float enemySpeed = 0.05f, initialScale = 2.0f;
     private readonly int firstLineCount = 4, secondLineCount = 5;
-
 
     // Pickup GameObjects
     public GameObject playerSpeedPickup, shootingSpeedPickup, shieldPickup;
@@ -107,10 +106,6 @@ public class GameEventController : MonoBehaviour {
                     {
                         case 1:
                             // Next level invoking
-                            ChangeObjectState(Instantiate(shieldPickup,
-                                shieldPickup.transform.position,
-                                Quaternion.Euler(180f, 0, 0)),
-                                true);
                             ChangeObjectState(Instantiate(shootingSpeedPickup,
                                 shootingSpeedPickup.transform.position,
                                 Quaternion.Euler(180f, 0, 0)),
@@ -120,6 +115,13 @@ public class GameEventController : MonoBehaviour {
                         case 2:
                             ChangeObjectState(Instantiate(playerSpeedPickup,
                                 playerSpeedPickup.transform.position,
+                                Quaternion.Euler(180f, 0, 0)),
+                                true);
+                            break;
+
+                        case 3:
+                            ChangeObjectState(Instantiate(shootingSpeedPickup,
+                                shootingSpeedPickup.transform.position,
                                 Quaternion.Euler(180f, 0, 0)),
                                 true);
                             break;
