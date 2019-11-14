@@ -16,27 +16,7 @@ public class DataHandler : MonoBehaviour {
     {
         // Set the file path compatable with mobile devices
         filePath = Application.persistentDataPath + "/" + fileName;
-        //ResetTopPlayers();
-    }
-
-    public void SaveData()
-    {
-        PlayerScore sc = new PlayerScore();
-        sc.name = "Arnold";
-        sc.highscore = 5;
-        // Find his place
-        gameData.scoresList.Add(sc);
-        // Calling the Json Wrapper
-        JsonWrapper wrapper = new JsonWrapper
-        {
-            gameData = gameData
-        };
-
-        // Turn gameobject to a string in Json format, put it in Json wrapper and save it
-
-        string fileContents = JsonUtility.ToJson(wrapper,true); // true parameter gives extra spacing
-        File.WriteAllText(filePath, fileContents);
-
+        ResetTopPlayers();
     }
 
     public void SortHighscoresArray(int incomingScore, string incomingName)
@@ -96,17 +76,19 @@ public class DataHandler : MonoBehaviour {
     public void InsertFreshData()
     {
         string[] randomNames = new string[5] { "John", "Peter", "George", "Itan", "Mike" };
-        int[] randomPlaces = new int[5] { 5, 4, 3, 2, 1 };
+        // Since there's only 5 seats
+        int[] availablePlaces = new int[5] {5, 4, 3, 2, 1};
         int randomScoreMeter = 1;
+        const int lastOne = 1;
 
         // No need to insert and then sort we, simple add dummy data from highest to lowest here and we only sort the incoming Player data with other methods
-        for (int i = placesCount; i >= 1; --i)
+        for (int i = placesCount; i >= lastOne; --i)
         {
             PlayerScore sc = new PlayerScore
             {
-                name = randomNames[i - 1],
+                name = randomNames[i - lastOne],
                 highscore = (randomScoreMeter * 2) + (5 * i),
-                place = randomPlaces[i-1]
+                place = availablePlaces[i- lastOne]
             };
             // Simply add t the gameDat list to insert into .json file
             gameData.scoresList.Add(sc);

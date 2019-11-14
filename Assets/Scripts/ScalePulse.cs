@@ -4,12 +4,13 @@ using System.Collections;
 public class ScalePulse : MonoBehaviour {
 
     private float scale = 2.0f;
+    private const float maxScale = 2.0f, minScale = 1.6f, pulsePause = 0.5f;
 
     public WaitForSeconds WaitForSeconds
     {
         get
         {
-            return new WaitForSeconds(0.5f);
+            return new WaitForSeconds(pulsePause);
         }
     }
 
@@ -18,10 +19,10 @@ public class ScalePulse : MonoBehaviour {
         // I'm using LogoScript in Menu and Instruction Scenes, so I play the continue playing music in both of them
         while (true)
         {
-            if (scale == 2.0f)
-                scale = 1.6f;
-            else if (scale == 1.6f)
-                scale = 2.0f;
+            if (scale == maxScale)
+                scale = minScale;
+            else if (scale == minScale)
+                scale = maxScale;
             transform.localScale = new Vector3(scale, scale, scale);
 
             yield return WaitForSeconds;

@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class GameEventController : MonoBehaviour {
 
-    private const string enemyTag = "Enemy", bossTag = "Boss", eBTag = "CustomPlayerBullet", pBTag = "CustomEnemyBullet",
-        speedPickupTag = "PlayerSpeedPickup", shootingPicktupTag = "ShootingSpeedPickup", shieldPickupTag = "ShieldPickup";
+    private const string enemyTag = "Enemy", bossTag = "Boss",
+        eBTag = "CustomPlayerBullet", pBTag = "CustomEnemyBullet",
+        speedPickupTag = "PlayerSpeedPickup", shootingPicktupTag = "ShootingSpeedPickup", shieldPickupTag = "ShieldPickup",
+        winningText = "You win";
 
     // Defined three main objects in this game, player, enemy spacehip which will be duplicated into more spaceships and boss
     public GameObject enemy, boss, player;
@@ -198,7 +200,7 @@ public class GameEventController : MonoBehaviour {
         ChangeObjectState(endGameText, true);
         StartCoroutine(ScaleObject(endGameText));
         gameOver = true; // finish game cycle
-        ClearEnemyGear();
+        ClearLeftObjects();  // Clear possible active obejcts in the scene
     }
 
     public void Winning()
@@ -207,12 +209,12 @@ public class GameEventController : MonoBehaviour {
         gameWinnerSound.Play();
         gameWinnerSound.volume = 0.8f;
         SetObjectsArrayState(endGameUIObjects, true);
-        endGameText.GetComponent<Text>().text = "You win";
+        endGameText.GetComponent<Text>().text = winningText;
         endGameText.GetComponent<Text>().color = Color.green;
         ChangeObjectState(endGameText, true);
         StartCoroutine(ScaleObject(endGameText));
         gameOver = true;  // finish game cycle
-        // Lets check if there's any object left undestroyed
+        ClearLeftObjects(); // Clear possible active obejcts in the scene
     }
 
     public void SetObjectsArrayState(GameObject[] objectsArray, bool state)
@@ -223,7 +225,7 @@ public class GameEventController : MonoBehaviour {
         }  
     }
 
-    public  void FreeLeftObjects(GameObject[] objectsArray)
+    public static void FreeObjectsInArray(GameObject[] objectsArray)
     {
         // Even though there's no NullReferenceException returned, but just to be sure
         if (objectsArray != null)
@@ -256,8 +258,9 @@ public class GameEventController : MonoBehaviour {
     // Then we go spawning lines of waves individually
     private void SpawnEnemyWave()
     {
-        SpawnEnemyLine(2.2f, 0f, secondLineCount, -8.9f);
-        SpawnEnemyLine(2.2f, 2f, firstLineCount, -7.79f);
+        const float xCoord = 2.2f, yFirstWave = 0f, ySecondWave = 2.2f;
+        SpawnEnemyLine(xCoord, yFirstWave, secondLineCount, -8.9f);
+        SpawnEnemyLine(xCoord, ySecondWave, firstLineCount, -7.79f);
     }
 
     private void SpawnBoss()
@@ -266,27 +269,28 @@ public class GameEventController : MonoBehaviour {
         hasBossSpawned = true;
     }
 
-    public void ClearEnemyGear()
+    public void ClearLeftObjects()
     {
         string[] tagsToCheck = new string[] { enemyTag, pBTag, eBTag, speedPickupTag, shootingPicktupTag, shieldPickupTag };
         foreach (string tag in tagsToCheck)
         {
-            FreeLeftObjects(GameObject.FindGameObjectsWithTag(tag));
+            FreeObjectsInArray(GameObject.FindGameObjectsWithTag(tag));
         }
     }
 
     private IEnumerator ScaleObject(GameObject go)
     {
+        const float maxScale = 2.0f, minScale = 1.6f, pulsePause = 0.5f;
         // I'm using LogoScript in Menu and Instruction Scenes, so I play the continue playing music in both of them
         while (true)
         {
-            if (initialScale.Equals(2.0f))
-                initialScale = 1.6f;
-            else if (initialScale.Equals(1.6f))
-                initialScale = 2.0f;
+            if (initialScale.Equals(maxScale))
+                initialScale = minScale;
+            else if (initialScale.Equals(minScale))
+                initialScale = maxScale;
             go.GetComponent<Text>().transform.localScale = new Vector3(initialScale, initialScale, initialScale);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(pulsePause);
         }
     }
 }
