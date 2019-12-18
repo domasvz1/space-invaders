@@ -5,20 +5,19 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
 
     // This can be from gameController
-    public float shootDelay = 1.0f;
-    public float repeatRate;
+    public float shootDelay = 1.0f, repeatRate;
 
-    // this needs to be assigned in inspector
-    public GameObject Bullet;
-    public Transform BulletSpawn;
+    // this needs to be assigned in the Inspector window
+    public GameObject bullet;
+    public Transform bulletSpawn;
     public GameObject explosion;
   
 
     // Use this for initialization
     void Start () {
-        // No the delay and shooting rate are generated randomly 
-        repeatRate = Random.Range(3.0f, 6.0f);
-        shootDelay = Random.Range(3.0f, 6.0f);
+        const float lowerBound = 3.0f, higherBound = 6.0f;
+        repeatRate = Random.Range(lowerBound, higherBound);
+        shootDelay = Random.Range(lowerBound, higherBound);
         InvokeRepeating("Shoot", shootDelay, repeatRate);
     }
 
@@ -47,7 +46,7 @@ public class EnemyController : MonoBehaviour {
 
     public void Shoot()
     {
-        Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
+        Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
         GetComponent<AudioSource>().Play();
     }
 

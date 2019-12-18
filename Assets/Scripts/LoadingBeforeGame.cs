@@ -32,5 +32,5 @@ public class LoadingBeforeGame : MonoBehaviour {
             if (secondsCounter >= timesForTextBlink)
                 blinking = false;
         }
-    }    
+    }
 }

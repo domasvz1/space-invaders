@@ -18,9 +18,11 @@ public class BossController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        // No the delay and shooting rate are generated randomly 
-        repeatRate = Random.Range(3.0f, 6.0f);
-        shootDelay = Random.Range(3.0f, 6.0f);
+        const float lowerBound = 3.0f, higherBound = 6.0f;
+        // Delay beetween the shooting rate are generated randomly
+        // --- In this way I simple make that the generated spacships would shoot at different times and rates
+        repeatRate = Random.Range(lowerBound, higherBound);
+        shootDelay = Random.Range(lowerBound, higherBound);
         InvokeRepeating("Shoot", shootDelay, repeatRate);
     }
 
@@ -31,7 +33,7 @@ public class BossController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Boundaries")
+        if (collider.tag.Equals("Boundaries"))
         {
             return;
         }
@@ -39,7 +41,7 @@ public class BossController : MonoBehaviour {
         GameEventController gameController = GameObject.FindGameObjectWithTag("GameEvents").GetComponent<GameEventController>();
 
         // If Enemy Collide with player bullet we need to destroy the bullet
-        if (collider.tag == "CustomPlayerBullet")
+        if (collider.tag.Equals("CustomPlayerBullet"))
         {
             if(health > 1)
             {

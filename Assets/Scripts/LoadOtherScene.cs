@@ -7,7 +7,8 @@ public class LoadOtherScene : MonoBehaviour
 {
     public void ChangeScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName); // Simply Changes The scene
+        // Load the passed scene in the Inspector
+        SceneManager.LoadScene(sceneName);
     }
 
     public void RestartSame()
@@ -17,7 +18,7 @@ public class LoadOtherScene : MonoBehaviour
 
     public void QuitGame()
     {
-        //Debug.Log("This will quit");
+        //Debug.Log("This will quit the application");
         Application.Quit();
     }
 }

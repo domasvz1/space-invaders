@@ -13,8 +13,8 @@ public class MusicScript : MonoBehaviour // Music script to play the music and d
 
     public void PlayMusic()
     {
-        if (_audioSource.isPlaying) return;
-        _audioSource.Play();
+        if (!_audioSource.isPlaying)
+            _audioSource.Play();
     }
 
     public void StopMusic()

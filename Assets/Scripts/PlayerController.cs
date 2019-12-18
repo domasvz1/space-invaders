@@ -13,15 +13,15 @@ public struct Boundaries
 
 public class PlayerController : MonoBehaviour
 {
-    public Boundaries Boundaries;
-    public Transform ShotSpawnCoords;
-    public GameObject BulletShell, explosion, pickupExplosion;
-    public AudioSource ShootingSound;
+    public Boundaries boundaries;
+    public Transform shotSpawnCoordinates;
+    public GameObject bulletShell, explosion, pickupExplosion;
+    public AudioSource shootingSound;
     private GameEventController gameEventController;
     private ParticleSystem.MainModule main;
 
-    private float shootingIntensity = 0.6f;
-    private float nextBulletTime, playerSpaceshipSpeed = 4.0f;
+    // Player speed should be tweaked in the Inspector window
+    private float shootingIntensity = 0.6f, playerSpaceshipSpeed = 4.0f, nextBulletTime;
     public int timeLeftForShootingBoost = 10, timeLeftForSpeedBoost = 10, playersHealth = 1;
 
     public bool hasShield = false, hasSpeedBoost = false, hasShootingBoost = false, blinking = true;
@@ -36,18 +36,19 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter(Collider collider)
     {
+        const int lastHealthBarrier = 2;
         // If a Player collides with enemy or enemy bullet spaceship,  the logic remains the same
-        if (collider.tag == "Enemy" || collider.tag == "CustomEnemyBullet")
+        if (collider.tag.Equals("Enemy") || collider.tag.Equals("CustomEnemyBullet"))
         {
             // It a player has a full shield he loses one health and nothing happens to him
-            if (playersHealth > 2)
+            if (playersHealth > lastHealthBarrier)
             {
                 playersHealth -= 1;
                 // TO DO: Shield lose partical explosion
                 Destroy(collider.gameObject);
             }
             // If he loses another health, his shield stops working
-            else if (playersHealth == 2)
+            else if (playersHealth == lastHealthBarrier)
             {
                 playersHealth -= 1;
                 StopCoroutine("PulsingIcon");
@@ -109,8 +110,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextBulletTime)
         {
             nextBulletTime = Time.time + shootingIntensity;
-            Instantiate(BulletShell, ShotSpawnCoords.position, ShotSpawnCoords.rotation);
-            ShootingSound.Play();
+            Instantiate(bulletShell, shotSpawnCoordinates.position, shotSpawnCoordinates.rotation);
+            shootingSound.Play();
         }
 
         // Use Shooting Boost
@@ -169,32 +170,23 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Getting Player's Rigidbody component
-
         Rigidbody player = GetComponent<Rigidbody>();
         // Need write the moving logic here
         float horizontalMovement = Input.GetAxis("Horizontal");
         float verticalMovement = Input.GetAxis("Vertical");
 
-
         // Get Rigidbody component and chanhe its velocity to vector coords multiplied by speed var
         Vector3 spaceshipPosition = new Vector3(horizontalMovement, verticalMovement, 0.0f);
 
-
-        // If someone forgets to set speed in inspector or it resets, this will be changed to default:
-        if (playerSpaceshipSpeed == 0)
-            playerSpaceshipSpeed = 10;
-
         player.velocity = spaceshipPosition * playerSpaceshipSpeed;
-
 
         // For now x,y min boundaries are:
         // X  "min -6.45f" and "max 1.6f"
         // Y  "min 1.29f" and "max 7"
         // This can be tweaked into method that would catch camera position and determine boundaries for object
         player.transform.position = new Vector3(
-            Mathf.Clamp(player.position.x, Boundaries.xMin, Boundaries.xMax),
-            Mathf.Clamp(player.position.y, Boundaries.yMin, Boundaries.yMax),
+            Mathf.Clamp(player.position.x, boundaries.xMin, boundaries.xMax),
+            Mathf.Clamp(player.position.y, boundaries.yMin, boundaries.yMax),
             player.transform.position.z);
         
         player.rotation = Quaternion.Euler(0.0f, 0.0f, player.velocity.x * -1);
@@ -205,7 +197,6 @@ public class PlayerController : MonoBehaviour
         AudioListener.pause = !AudioListener.pause;
     }
 
- 
     private IEnumerator UseShootingBoost()
     {
         shootingIntensity = 0.2f;

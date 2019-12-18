@@ -54,8 +54,8 @@ public class DataHandler : MonoBehaviour {
                 };
 
                 // Turn gameobject to a string in Json format, put it in Json wrapper and save it
-
-                fileContents = JsonUtility.ToJson(wrapper, true); // true parameter gives extra spacing
+                // -- True parameter gives extra spacing
+                fileContents = JsonUtility.ToJson(wrapper, true);
                 File.WriteAllText(filePath, fileContents);
 
             }
@@ -67,6 +67,7 @@ public class DataHandler : MonoBehaviour {
 
             }
         }
+        // This could be handleded better in the future
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
@@ -112,7 +113,7 @@ public class DataHandler : MonoBehaviour {
         {
             if (File.Exists(filePath))
             {
-                // We read data to the wraper and return it here
+                // Read data to the wraper and return it here
                 string fileContents = File.ReadAllText(filePath);
                 JsonWrapper wrapper = JsonUtility.FromJson<JsonWrapper>(fileContents);
                 gameData = wrapper.gameData;

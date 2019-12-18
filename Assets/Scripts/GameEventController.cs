@@ -230,7 +230,7 @@ public class GameEventController : MonoBehaviour {
     public static void FreeObjectsInArray(GameObject[] objectsArray)
     {
         // Even though there's no NullReferenceException returned, but just to be sure
-        if (objectsArray != null)
+        if (!objectsArray.Equals(null))
         {
             foreach (GameObject item in objectsArray)
             {

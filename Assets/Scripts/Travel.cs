@@ -9,6 +9,5 @@ public class Travel : MonoBehaviour {
 	void Start ()
     {
         GetComponent<Rigidbody>().velocity = transform.up * travelSpeed;
-    }
-	
+    }	
 }

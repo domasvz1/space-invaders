@@ -51,22 +51,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BossController.cs" />
-     <Compile Include="Assets\CounterSoundTimer.cs" />
-     <Compile Include="Assets\DataHandler.cs" />
-     <Compile Include="Assets\DestroyItself.cs" />
-     <Compile Include="Assets\DestroyOnCollision.cs" />
-     <Compile Include="Assets\DummyTravel.cs" />
-     <Compile Include="Assets\EnemyController.cs" />
-     <Compile Include="Assets\GameData.cs" />
-     <Compile Include="Assets\HandleDataToFile.cs" />
-     <Compile Include="Assets\JsonWrapper.cs" />
-     <Compile Include="Assets\PlayerScore.cs" />
-     <Compile Include="Assets\PlayerSpeedPickupHandler.cs" />
-     <Compile Include="Assets\PlayerSpeedPickupPathStart.cs" />
-     <Compile Include="Assets\Refresh.cs" />
+     <Compile Include="Assets\Scripts\BossController.cs" />
+     <Compile Include="Assets\Scripts\CounterSoundTimer.cs" />
+     <Compile Include="Assets\Scripts\DataHandler.cs" />
      <Compile Include="Assets\Scripts\DestroyFinishedParticle.cs" />
+     <Compile Include="Assets\Scripts\DestroyItself.cs" />
+     <Compile Include="Assets\Scripts\DestroyOnCollision.cs" />
+     <Compile Include="Assets\Scripts\DummyTravel.cs" />
+     <Compile Include="Assets\Scripts\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\GameData.cs" />
      <Compile Include="Assets\Scripts\GameEventController.cs" />
+     <Compile Include="Assets\Scripts\HandleDataToFile.cs" />
+     <Compile Include="Assets\Scripts\JsonWrapper.cs" />
      <Compile Include="Assets\Scripts\LoadingAfterGame.cs" />
      <Compile Include="Assets\Scripts\LoadingBeforeGame.cs" />
      <Compile Include="Assets\Scripts\LoadOtherScene.cs" />
@@ -74,19 +70,23 @@
      <Compile Include="Assets\Scripts\MastersIconTravel.cs" />
      <Compile Include="Assets\Scripts\MusicScript.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\PlayerScore.cs" />
      <Compile Include="Assets\Scripts\PlayerSpeedPickupCheckpoint.cs" />
+     <Compile Include="Assets\Scripts\PlayerSpeedPickupHandler.cs" />
      <Compile Include="Assets\Scripts\PlayerSpeedPickupMovement.cs" />
+     <Compile Include="Assets\Scripts\PlayerSpeedPickupPathStart.cs" />
+     <Compile Include="Assets\Scripts\Refresh.cs" />
      <Compile Include="Assets\Scripts\ScalePulse.cs" />
-     <Compile Include="Assets\ShieldPickupCheckpoint.cs" />
-     <Compile Include="Assets\ShieldPickupHandler.cs" />
-     <Compile Include="Assets\ShieldPickupMovement.cs" />
-     <Compile Include="Assets\ShieldPickupPathStart.cs" />
-     <Compile Include="Assets\ShootingSpeedPickupCheckpoint.cs" />
-     <Compile Include="Assets\ShootingSpeedPickupHandler.cs" />
-     <Compile Include="Assets\ShootingSpeedPickupMovement.cs" />
-     <Compile Include="Assets\ShootingSpeedPickupPathStart.cs" />
-     <Compile Include="Assets\Travel.cs" />
-     <Compile Include="Assets\UpdateMenuItems.cs" />
+     <Compile Include="Assets\Scripts\ShieldPickupCheckpoint.cs" />
+     <Compile Include="Assets\Scripts\ShieldPickupHandler.cs" />
+     <Compile Include="Assets\Scripts\ShieldPickupMovement.cs" />
+     <Compile Include="Assets\Scripts\ShieldPickupPathStart.cs" />
+     <Compile Include="Assets\Scripts\ShootingSpeedPickupCheckpoint.cs" />
+     <Compile Include="Assets\Scripts\ShootingSpeedPickupHandler.cs" />
+     <Compile Include="Assets\Scripts\ShootingSpeedPickupMovement.cs" />
+     <Compile Include="Assets\Scripts\ShootingSpeedPickupPathStart.cs" />
+     <Compile Include="Assets\Scripts\Travel.cs" />
+     <Compile Include="Assets\Scripts\UpdateMenuItems.cs" />
  <Reference Include="UnityEngine.CoreModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2017.4.34f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
  </Reference>
